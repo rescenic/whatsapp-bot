@@ -2760,6 +2760,17 @@ break
                                     aruga.reply(from, 'Error', id)
                                 })
                                 break
+								case prefix+'asupan5':
+									aruga.reply(from, mess.wait, id)
+									axios.get(`http://lolhuman.herokuapp.com/api/asupan?apikey=${lolhuman}`)
+									.then(async(res) => {
+										if (res.data.status == 404) return aruga.reply(from, res.data.message, id)
+										await aruga.sendFileFromUrl(from, res.data.result, `asupan.mp4`, `*R A N D O M  A S U P A N*`, id)
+									})
+									.catch(err => {
+										aruga.reply(from, err.data, id)
+									})
+								break
 								case prefix+'asupan4':
 								aruga.reply(from, mess.wait, id)
 								axios.get(`http://zekais-api.herokuapp.com/ptlvid`)

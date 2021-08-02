@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Urbaeexyz/wa-bot#readme",
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.1",
-    "@open-wa/wa-automate": "^4.8.2",
+    "@open-wa/wa-automate": "^4.12.3",
     "app-root-path": "^3.0.0",
     "axios": "^0.21.1",
     "bent": "^7.3.12",

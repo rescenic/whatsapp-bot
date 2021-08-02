@@ -4297,7 +4297,7 @@ console.log(err)
 		})
 		break
 		case prefix+'exec':
-                    if (!isOwner) return aruga.reply(from, `Perintah ini hanya bisa di gunakan oleh Owner Ai-Bot!`, id)
+                    if (!isOwner) return aruga.reply(from, `Perintah ini hanya bisa di gunakan oleh Owner Bot!`, id)
                     if (!q) return await aruga.reply(from, `Format salah pastikan sudah benar di ${prefix}menu`, id)
                     //const execute = require("child_process")
                     var spawn = require('child_process').exec;

@@ -49,7 +49,7 @@ const {
     rugaapi,
     downloader,
     sticker,
-	level
+    level
 } = require('./lib')
 
 
@@ -63,7 +63,7 @@ const {
     color, 
     processTime, 
     isUrl,
-	download
+    download
 } = require('./utils')
 
 const { 
@@ -102,25 +102,25 @@ let {
     keepSave,
     iTechApi,
     apiKey,
-	banChats,
-	tobzapi,
-	lindowapi,
-	onlydev,
-	hackapi,
-	fahmiapi,
-	lolhuman,
-	dapuhyapi,
-	paiskey,
-	leysapi,
-	apikeyvinz, //IF YOU HAVE THIS APIKEY, YOU CAN CUSTOM IT!
-	authorstc,
-	packstc,
-	mtc: mtcState
+    banChats,
+    tobzapi,
+    lindowapi,
+    onlydev,
+    hackapi,
+    fahmiapi,
+    lolhuman,
+    dapuhyapi,
+    paiskey,
+    leysapi,
+    apikeyvinz, //IF YOU HAVE THIS APIKEY, YOU CAN CUSTOM IT!
+    authorstc,
+    packstc,
+    mtc: mtcState
 } = setting
 
 const {
     apiNoBg,
-	apiSimi
+    apiSimi
 } = JSON.parse(fs.readFileSync('./settings/api.json'))
 
 function formatin(duit){
@@ -173,8 +173,8 @@ const isMuted = (chatId) => {
 function identify(buffer) {
      return new Promise(async (resolve, reject) => {
           const bodyForm = new FormData()
-		  const pathh = './audio.mp3'
-          bodyForm.append('audio', buffer, 'file.mp3')
+	  const pathh = './audio.mp3'
+           bodyForm.append('audio', buffer, 'file.mp3')
            bodyForm.append('apikey', `${apikeyvinz}`)
            axios('https://api.zeks.xyz/api/searchmusic', {
                 method: 'POST',
@@ -211,64 +211,64 @@ module.exports = HandleMsg = async (aruga, message) => {
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
         const groupAdmins = isGroupMsg ? await aruga.getGroupAdmins(groupId) : ''
         const isGroupAdmins = groupAdmins.includes(sender.id) || false
-		const chats = (type === 'chat') ? body : (type === 'image' || type === 'video') ? caption : ''
+	const chats = (type === 'chat') ? body : (type === 'image' || type === 'video') ? caption : ''
         const pengirim = sender.id
         const serial = sender.id
-		const isLevelingOn = isGroupMsg ? _leveling.includes(groupId) : false
-		const betime = moment(t * 1000).format('DD/MM/YY')
-		const time = moment(t * 1000).format('DD/MM/YY HH:mm:ss')
-		const timee = moment(t * 1000).format('HH:mm:ss')
+	const isLevelingOn = isGroupMsg ? _leveling.includes(groupId) : false
+	const betime = moment(t * 1000).format('DD/MM/YY')
+	const time = moment(t * 1000).format('DD/MM/YY HH:mm:ss')
+	const timee = moment(t * 1000).format('HH:mm:ss')
         const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
-		const userId = sender.id.substring(9, 13)
+	const userId = sender.id.substring(9, 13)
         const blockNumber = await aruga.getBlockedIds()
         const groupMembers = isGroupMsg ? await aruga.getGroupMembersId(groupId) : ''
         const GroupLinkDetector = antilink.includes(chatId)
         const stickermsg = message.type === 'sticker'
 
         // Bot Prefix
-		const commands = caption || body || ''
+	const commands = caption || body || ''
         const argxx = commands.toLowerCase()
         const argss =  commands.split(' ')
-		const command = commands.toLowerCase().split(' ')[0] || ''
-		const prefix = /^[°•π÷×¶∆£¢€¥®™✓=|~`,*zxcv!?@#$%^&.\/\\©^]/.test(command) ? command.match(/^[!?#$,^.,/\/\\©^]/gi) : '-'
+	const command = commands.toLowerCase().split(' ')[0] || ''
+	const prefix = /^[°•π÷×¶∆£¢€¥®™✓=|~`,*zxcv!?@#$%^&.\/\\©^]/.test(command) ? command.match(/^[!?#$,^.,/\/\\©^]/gi) : '-'
         global.prefix
-		body = (type === 'chat' && body.startsWith(prefix)) ? body : (((type === 'image' || type === 'video') && caption) && caption.startsWith(prefix)) ? caption : ''
+	body = (type === 'chat' && body.startsWith(prefix)) ? body : (((type === 'image' || type === 'video') && caption) && caption.startsWith(prefix)) ? caption : ''
         const arg = body.trim().substring(body.indexOf(' ') + 1)
         const args = body.trim().split(/ +/).slice(1)
         const q = args.join(' ')
         const isBlocked = blockNumber.includes(sender.id)
         const isCmd = body.startsWith(prefix)
-		const tms = (Date.now() / 1000) - (timeStart);
+	const tms = (Date.now() / 1000) - (timeStart);
         const cts = waktu(tms)
-	    const waver = await aruga.getWAVersion()
+	const waver = await aruga.getWAVersion()
         const uaOverride = process.env.UserAgent
         const url = args.length !== 0 ? args[0] : ''
         const isQuotedImage = quotedMsg && quotedMsg.type === 'image'
         const isQuotedVideo = quotedMsg && quotedMsg.type === 'video/mp4'
-		const isQuotedGif = quotedMsg && quotedMsg.type === 'gif'
-		const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
-		const isQuotedSticker = quotedMsg && quotedMsg.type === 'sticker'
-		const isQuotedFile = quotedMsg && quotedMsg.type === 'file'
-		const reason = q ? q : 'Gada'
-		const gifcrop = { crop: true, square: 240, fps: 30, loop: 0, startTime: `00:00:00.0`, endTime: `00:00:10.0` }
-		const gifxyz = { crop: false, square: 240, fps: 30, loop: 0, startTime: `00:00:00.0`, endTime: `00:00:10.0` }
-		const StickerMetadata = { author : authorstc, pack: packstc, keepScale: true }
-		const StickerMetadatacrop = { author : authorstc, pack: packstc, keepScale: false }
+	const isQuotedGif = quotedMsg && quotedMsg.type === 'gif'
+	const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
+	const isQuotedSticker = quotedMsg && quotedMsg.type === 'sticker'
+	const isQuotedFile = quotedMsg && quotedMsg.type === 'file'
+	const reason = q ? q : 'Gada'
+	const gifcrop = { crop: true, square: 240, fps: 30, loop: 0, startTime: `00:00:00.0`, endTime: `00:00:10.0` }
+	const gifxyz = { crop: false, square: 240, fps: 30, loop: 0, startTime: `00:00:00.0`, endTime: `00:00:10.0` }
+	const StickerMetadata = { author : authorstc, pack: packstc, keepScale: true }
+	const StickerMetadatacrop = { author : authorstc, pack: packstc, keepScale: false }
 
         // [IDENTIFY]
         const ownerNumber = "62895334951166@c.us"
-		const errorImg = "https://i.ibb.co/DYLd6fk/baukrysie.jpg"
+	const errorImg = "https://i.ibb.co/DYLd6fk/baukrysie.jpg"
         const isOwnerBot = ownerNumber.includes(pengirim)
         const isOwner = ownerNumber.includes(pengirim)
         const isOwnerB = ownerNumber.includes(pengirim)
         const isBanned = banned.includes(pengirim)
-		const isSimi = simi.includes(chatId)
-		const isNgegas = ngegas.includes(chatId)
+	const isSimi = simi.includes(chatId)
+	const isNgegas = ngegas.includes(chatId)
         const isAutoStikerOn = _autostiker.includes(chat.id)
         const isImage = type === 'image'
         const isPrem = prem.includes(pengirim)
-		const authorr = '@thoriqazzikra_'
-		const pack = 'Urbaeexyz'
+	const authorr = '@thoriqazzikra_'
+	const pack = 'Urbaeexyz'
         
         //
         if (isCmd && !isGroupMsg) { console.log(color('[EXEC]', 'magenta'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`, 'aqua'), 'from', color(`${pushname}`, 'magenta'))}
@@ -473,7 +473,7 @@ module.exports = HandleMsg = async (aruga, message) => {
         }
 
         // Leveling [BETA] by Slavyan
-        if (isGroupMsg && isRegistered && !level.isGained(sender.id) && !isBanned && isLevelingOn) {
+        if (isGroupMsg && !level.isGained(sender.id) && !isBanned && isLevelingOn) {
             try {
                 level.addCooldown(sender.id)
                 const currentLevel = level.getLevelingLevel(sender.id, _level)
@@ -580,15 +580,15 @@ module.exports = HandleMsg = async (aruga, message) => {
 	
 	// Filter Blocked People
 	if (isBlocked && isCmd) {
-			console.log(color('[BLOCK]', 'red'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${chats} [${args.length}]`, 'aqua'), 'from', color(pushname, 'magenta'), 'in', color(name || formattedTitle, 'aqua')) 
+		console.log(color('[BLOCK]', 'red'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${chats} [${args.length}]`, 'aqua'), 'from', color(pushname, 'magenta'), 'in', color(name || formattedTitle, 'aqua')) 
 	}
 	
 	aruga.setPresence(true)
 	
-		if (isCmd && isMuted(chatId) && banChat() && !isBlocked && !isBanned || isOwnerB || isPrem ) {
+	if (isCmd && isMuted(chatId) && banChat() && !isBlocked && !isBanned || isOwnerB || isPrem ) {
         switch (command) {
         // Menu and TnC
-		case prefix+'exif':
+	case prefix+'exif':
 		if (!isOwnerB) return aruga.reply(from, 'Perintah ini hanya bisa digunakan oleh Owner Bot!', id)
 		const splitauthor = q.split('|')[1]
 		const packauthor = q.split('|')[0]
@@ -596,7 +596,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 		packstc = packauthor
 		aruga.reply(from, `Berhasil mengubah pack stiker menjadi ${splitauthor} dan ${packauthor}`, id)
 		break
-		case prefix+'mute':
+	case prefix+'mute':
 		if (!isGroupMsg) return aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam Grup!', id)
 		if (!isOwnerB) return aruga.reply(from, 'Fitur ini hanya bisa digunakan oleh Owner Bot!', id)
 		if (isGroupMsg) {
@@ -605,11 +605,11 @@ module.exports = HandleMsg = async (aruga, message) => {
 			muted.push(chatId)
 			fs.writeFileSync('./lib/database/muted.json', JSON.stringify(muted, null, 2))
 			aruga.reply(from, 'Bot telah di mute pada grup ini!', id)
-          }else{
-             muted.push(chatId)
-             fs.writeFileSync('./lib/database/muted.json', JSON.stringify(muted, null, 2))
-             aruga.reply(from, 'Bot telah di mute pada grup ini!', id)
-            }
+          	}else{
+             		muted.push(chatId)
+             		fs.writeFileSync('./lib/database/muted.json', JSON.stringify(muted, null, 2))
+             		aruga.reply(from, 'Bot telah di mute pada grup ini!', id)
+            	}
 			break
 		case prefix+'unmute':
 		if (!isGroupMsg) return aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam Grup!', id)
@@ -619,22 +619,22 @@ module.exports = HandleMsg = async (aruga, message) => {
 			let indexsz = muted.indexOf(chatId);
 			muted.splice(indexsz,1)
 			fs.writeFileSync('./lib/database/muted.json', JSON.stringify(muted, null, 2))
-            aruga.reply(from, 'Bot telah di unmuted pada grup ini!', id)
+            		aruga.reply(from, 'Bot telah di unmuted pada grup ini!', id)
 		} else {
 			let indexsz = muted.indexOf(chatId);
-            muted.splice(indexsz,1)
-            fs.writeFileSync('./lib/database/muted.json', JSON.stringify(muted, null, 2))
-            aruga.reply(from, 'Bot telah di unmuted pada grup ini!', id) 
+           		muted.splice(indexsz,1)
+            		fs.writeFileSync('./lib/database/muted.json', JSON.stringify(muted, null, 2))
+            		aruga.reply(from, 'Bot telah di unmuted pada grup ini!', id) 
 		}
 		break
 		case prefix+'private':
 			if (!isOwnerB) return aruga.reply(from, 'Perintah ini hanya bisa digunakan oleh owner Bot!', id)
 			if (setting.banChats === true) return
-            setting.banChats = true
-            banChats = true
-            fs.writeFileSync('./lib/database/setting.json', JSON.stringify(setting, null, 2))
-            aruga.reply(from, 'Private Commands has been enable', id)
-            break
+            		setting.banChats = true
+            		banChats = true
+            		fs.writeFileSync('./lib/database/setting.json', JSON.stringify(setting, null, 2))
+            		aruga.reply(from, 'Private Commands has been enable', id)
+            		break
 		case prefix+'public':
 			if (!isOwnerB) return aruga.reply(from, 'Perintah ini hanya bisa digunakan oleh owner Bot!', id)
 			if (setting.banChats === false) return
@@ -685,86 +685,86 @@ module.exports = HandleMsg = async (aruga, message) => {
                 }
             break
         case prefix+'tnc':
-			const menus = menuId.textTnC()
-            await aruga.reply(from, menus, id)
-            break
+	     const menus = menuId.textTnC()
+             await aruga.reply(from, menus, id)
+             break
         case prefix+'help':
             const bots = `Hi minna, this is Urbae Bot, to find out the commands menu, type *${prefix}menu* , *${prefix}p*`
             await aruga.reply(from, bots , id)
             break
-		case prefix+'rbts':
-		aruga.reply(from, mess.wait, id)
-		aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/bts?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
-		break
-		case prefix+'rvidanime':
-		aruga.reply(from, mess.wait, id)
-		aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/randomaesthetic?apikey=${lindowapi}`, 'anime.mp4', '', id)
-		break
-		case prefix+'rexo':
-		aruga.reply(from, mess.wait, id)
-		aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/exo?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
-		break
-		case prefix+'rblackpink':
-		aruga.reply(from, mess.wait, id)
-		aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/blackpink?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
-		break
-		case prefix+'rcitacita':
-		aruga.reply(from, mess.wait, id)
-		await aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/citacita?&apikey=${lindowapi}`, 'citacita.mp3', '', id)
-		break
-		case prefix+'ceritahorror':
-		case prefix+'ceritahoror':
-		aruga.reply(from, mess.wait, id)
-		axios.get(`http://lolhuman.herokuapp.com/api/ceritahoror?apikey=${lolhuman}`)
-		.then(async(res) => {
-			const becapt = `*Judul:* ${res.data.result.title}\n*Desk:* ${res.data.result.desc}\n*Cerita:* ${res.data.result.story}`
-			await aruga.sendFileFromUrl(from, res.data.result.thumbnail, 'thumb.jpg', becapt, id)
-			.catch(() => {
-				aruga.reply(from, 'Server sedang maintenance atau apikey sudah limit', id)
-			})
+	case prefix+'rbts':
+	    aruga.reply(from, mess.wait, id)
+	    aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/bts?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
+	    break
+	case prefix+'rvidanime':
+	    aruga.reply(from, mess.wait, id)
+	    aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/randomaesthetic?apikey=${lindowapi}`, 'anime.mp4', '', id)
+	    break
+	case prefix+'rexo':
+	    aruga.reply(from, mess.wait, id)
+	    aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/exo?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
+	    break
+	case prefix+'rblackpink':
+	    aruga.reply(from, mess.wait, id)
+	    aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/blackpink?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
+	    break
+	case prefix+'rcitacita':
+	    aruga.reply(from, mess.wait, id)
+	    await aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/citacita?&apikey=${lindowapi}`, 'citacita.mp3', '', id)
+	    break
+	case prefix+'ceritahorror':
+ 	case prefix+'ceritahoror':
+	     aruga.reply(from, mess.wait, id)
+	     axios.get(`http://lolhuman.herokuapp.com/api/ceritahoror?apikey=${lolhuman}`)
+	     .then(async(res) => {
+		const becapt = `*Judul:* ${res.data.result.title}\n*Desk:* ${res.data.result.desc}\n*Cerita:* ${res.data.result.story}`
+		await aruga.sendFileFromUrl(from, res.data.result.thumbnail, 'thumb.jpg', becapt, id)
+		.catch(() => {
+		   aruga.reply(from, 'Server sedang maintenance atau apikey sudah limit', id)
 		})
+	      })
+	      .catch(err => {
+		console.log(err)
+		aruga.reply(from, err.message, id)
+	       })
+	    break
+	case prefix+'ceritahorror2':
+	case prefix+'ceritahoror2':
+	case prefix+'ceritaseram':
+	case prefix+'ceritahantu':
+	     aruga.reply(from, mess.wait, id)
+	     axios.get(`https://leyscoders-api.herokuapp.com/api/cerita-horor?apikey=${leysapi}`)
+	     .then(async(res) => {
+		const titlehor = res.data.result.title
+		const deschor = res.data.result.desc
+		const storor = res.data.result.story
+		aruga.reply(from, `*Judul:* ${titlehor}\n*Desk:* ${deschor}\n\n*Cerita:* ${storor}`, id)
 		.catch(err => {
-			console.log(err)
-			aruga.reply(from, err.message, id)
+	          console.log(err)
+	          aruga.reply(from, 'Terjadi kesalahan, silahkan coba ulangi', id)
 		})
-		break
-		case prefix+'ceritahorror2':
-		case prefix+'ceritahoror2':
-		case prefix+'ceritaseram':
-		case prefix+'ceritahantu':
-		aruga.reply(from, mess.wait, id)
-		axios.get(`https://leyscoders-api.herokuapp.com/api/cerita-horor?apikey=${leysapi}`)
-		.then(async(res) => {
-			const titlehor = res.data.result.title
-			const deschor = res.data.result.desc
-			const storor = res.data.result.story
-			aruga.reply(from, `*Judul:* ${titlehor}\n*Desk:* ${deschor}\n\n*Cerita:* ${storor}`, id)
-			.catch(err => {
-				console.log(err)
-				aruga.reply(from, 'Terjadi kesalahan, silahkan coba ulangi', id)
-			})
-		})
-		break
-		case prefix+'runtime':
-		aruga.reply(from, `*Bot has been active for ${cts}*`, id)
-		break
-		case prefix+'eval':
-         case prefix+'ev':
-                if (!isOwner) return await aruga.reply(from, 'Perintah ini hanya bisa digunakan oleh Owner!', id)
-                if (!q) return await aruga.reply(from, 'Masukkan kode Javascript!', id)
-                try {
-                    let evaled = await eval(q)
-                    if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
-                } catch (err) {
-                    console.error(err)
-					aruga.reply(from, 'Kode Js salah', id)
+	     })
+	     break
+	case prefix+'runtime':
+	     aruga.reply(from, `*Bot has been active for ${cts}*`, id)
+	     break
+	case prefix+'eval':
+        case prefix+'ev':
+             if (!isOwner) return await aruga.reply(from, 'Perintah ini hanya bisa digunakan oleh Owner!', id)
+             if (!q) return await aruga.reply(from, 'Masukkan kode Javascript!', id)
+             try {
+               let evaled = await eval(q)
+               if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
+             } catch (err) {
+               console.error(err)
+	       aruga.reply(from, 'Kode Js salah', id)
                 }
             break
         case prefix+'p':
-		case prefix+'start':
+	case prefix+'start':
         case prefix+'menu':
-			const jame = moment(t * 1000).format('HH:mm:ss')
-			const pictrand = menupict[Math.floor(Math.random() * (menupict.length))]
+	    const jame = moment(t * 1000).format('HH:mm:ss')
+	    const pictrand = menupict[Math.floor(Math.random() * (menupict.length))]
             aruga.sendFileFromUrl(from, pictrand, 'image.jpg', menuId.help(prefix, jame, betime, prem, blockNumber, banned, cts, waver), id)
             .then(() => ((isGroupMsg) && (isGroupAdmins)) ? aruga.sendText(from, `Menu Admin Grup: *${prefix}menuadmin*`) : null)
             break
@@ -774,14 +774,14 @@ module.exports = HandleMsg = async (aruga, message) => {
             const php4 = 'https://i.ibb.co/mHPkCRh/1.jpg'
             await aruga.sendFileFromUrl(from, php4,'image.jpg', menuId.admin(prefix), id)
             break
-			case prefix+'kodebahasa':
-			const kodbhs = menuId.kodebahasa()
-			aruga.reply(from, kodbhs, id, true)
-			break
-            case prefix+'kodenuklir':
-				const benuk = menuId.kodenuklir()
-                await aruga.sendText(from, benuk, id, true)
-                break
+	case prefix+'kodebahasa':
+	    const kodbhs = menuId.kodebahasa()
+	    aruga.reply(from, kodbhs, id, true)
+	    break
+        case prefix+'kodenuklir':
+	    const benuk = menuId.kodenuklir()
+            await aruga.sendText(from, benuk, id, true)
+            break
         case prefix+'donate':
         case prefix+'donasi':
 			const inidonate = menuId.textDonasi()

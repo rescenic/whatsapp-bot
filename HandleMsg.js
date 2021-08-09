@@ -49,6 +49,7 @@ const {
     rugaapi,
     downloader,
     sticker,
+	level
 } = require('./lib')
 
 
@@ -78,6 +79,8 @@ const ngegas = JSON.parse(fs.readFileSync('./settings/ngegas.json'))
 const setting = JSON.parse(fs.readFileSync('./settings/setting.json'))
 const _autostiker = JSON.parse(fs.readFileSync('./lib/helper/autostiker.json'))
 const _afk = JSON.parse(fs.readFileSync('./lib/database/afk.json'))
+const _leveling = JSON.parse(fs.readFileSync('./lib/database/group/leveling.json'))
+const _level = JSON.parse(fs.readFileSync('./lib/database/level.json'))
 
 let dbcot = JSON.parse(fs.readFileSync('./lib/database/bacot.json'))
 let dsay = JSON.parse(fs.readFileSync('./lib/database/say.json'))
@@ -211,6 +214,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 		const chats = (type === 'chat') ? body : (type === 'image' || type === 'video') ? caption : ''
         const pengirim = sender.id
         const serial = sender.id
+		const isLevelingOn = isGroupMsg ? _leveling.includes(groupId) : false
 		const betime = moment(t * 1000).format('DD/MM/YY')
 		const time = moment(t * 1000).format('DD/MM/YY HH:mm:ss')
 		const timee = moment(t * 1000).format('HH:mm:ss')
@@ -253,6 +257,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 
         // [IDENTIFY]
         const ownerNumber = "62895334951166@c.us"
+		const errorImg = "https://i.ibb.co/DYLd6fk/baukrysie.jpg"
         const isOwnerBot = ownerNumber.includes(pengirim)
         const isOwner = ownerNumber.includes(pengirim)
         const isOwnerB = ownerNumber.includes(pengirim)
@@ -288,6 +293,50 @@ module.exports = HandleMsg = async (aruga, message) => {
 		  })
 	  }
 
+			 // ROLE (Change to what you want, or add) and you can change the role sort based on XP.
+			  const levelRole = level.getLevelingLevel(sender.id, _level)
+			  var role = 'Copper V'
+			  if (levelRole >= 5) {
+				  role = 'Copper IV'
+			  } else if (levelRole >= 10) {
+				  role = 'Copper III'
+			  } else if (levelRole >= 15) {
+				  role = 'Copper II'
+			  } else if (levelRole >= 20) {
+				  role = 'Copper I'
+			  } else if (levelRole >= 25) {
+				  role = 'Silver V'
+			  } else if (levelRole >= 30) {
+				  role = 'Silver IV'
+			  } else if (levelRole >= 35) {
+				  role = 'Silver III'
+			  } else if (levelRole >= 40) {
+				  role = 'Silver II'
+			  } else if (levelRole >= 45) {
+				  role = 'Silver I'
+			  } else if (levelRole >= 50) {
+				  role = 'Gold V'
+			  } else if (levelRole >= 55) {
+				  role = 'Gold IV'
+			  } else if (levelRole >= 60) {
+				  role = 'Gold III'
+			  } else if (levelRole >= 65) {
+				  role = 'Gold II'
+			  } else if (levelRole >= 70) {
+				  role = 'Gold I'
+			  } else if (levelRole >= 75) {
+				  role = 'Platinum V'
+			  } else if (levelRole >= 80) {
+				  role = 'Platinum IV'
+			  } else if (levelRole >= 85) {
+				  role = 'Platinum III'
+			  } else if (levelRole >= 90) {
+				  role = 'Platinum II'
+			  } else if (levelRole >= 95) {
+				  role = 'Platinum I'
+			  } else if (levelRole > 100) {
+				  role = 'Exterminator'
+			  }
 
         const mess = {
             wait: '_Waitt, lemme process this shit_',
@@ -423,6 +472,25 @@ module.exports = HandleMsg = async (aruga, message) => {
             }
         }
 
+        // Leveling [BETA] by Slavyan
+        if (isGroupMsg && isRegistered && !level.isGained(sender.id) && !isBanned && isLevelingOn) {
+            try {
+                level.addCooldown(sender.id)
+                const currentLevel = level.getLevelingLevel(sender.id, _level)
+                const amountXp = Math.floor(Math.random() * (15 - 25 + 1) + 15)
+                const requiredXp = 5 * Math.pow(currentLevel, 2) + 50 * currentLevel + 100
+                level.addLevelingXp(sender.id, amountXp, _level)
+                if (requiredXp <= level.getLevelingXp(sender.id, _level)) {
+                    level.addLevelingLevel(sender.id, 1, _level)
+                    const userLevel = level.getLevelingLevel(sender.id, _level)
+                    const fetchXp = 5 * Math.pow(userLevel, 2) + 50 * userLevel + 100
+                    await aruga.reply(from, `*── 「 LEVEL UP 」 ──*\n\n➸ *Name*: ${pushname}\n➸ *XP*: ${level.getLevelingXp(sender.id, _level)} / ${fetchXp}\n➸ *Level*: ${currentLevel} -> ${level.getLevelingLevel(sender.id, _level)} 🆙 \n➸ *Role*: *${role}*`, id)
+                }
+            } catch (err) {
+                console.error(err)
+            }
+        }
+
 
         if (isAutoStikerOn && isMedia && isImage) {
             const mediaData = await decryptMedia(message, uaOverride)
@@ -448,6 +516,8 @@ module.exports = HandleMsg = async (aruga, message) => {
 
 	const menupict = [
 			"https://i.ibb.co/Fsdgj6p/asha.jpg",
+			"https://i.ibb.co/SfPCmsZ/65307459-647461459071676-8817651150049313976-n.jpg",
+			"https://i.ibb.co/PNR9rT3/IMG-20210412-WA0036.jpg",
 			"https://i.ibb.co/WsPRR5G/baifern.jpg",
 			"https://i.ibb.co/3pms02n/krystal.jpg",
 			"https://i.ibb.co/stWN2D5/mewnit.jpg",
@@ -802,6 +872,114 @@ module.exports = HandleMsg = async (aruga, message) => {
                 if (lpornhub > 10) return aruga.reply(from, '*Teks1 Terlalu Panjang!*\n_Maksimal 10 huruf!_', id)
                 if (lpornhub2 > 10) return aruga.reply(from, '*Teks2 Terlalu Panjang!*\n_Maksimal 10 huruf!_', id)
                 aruga.sendFileFromUrl(from, `https://api.zeks.xyz/api/phlogo?text1=${lpornhub}&text2=${lpornhub2}&apikey=${apikeyvinz}`, '', '', id)
+            break
+            // Level [BETA] by Slavyan
+            case prefix+'level':
+                if (!isLevelingOn) return await aruga.reply(from, 'Fitur Leveling belum diaktifkan!', id)
+                if (!isGroupMsg) return await aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam Grup!', id)
+                const userLevel = level.getLevelingLevel(sender.id, _level)
+                const userXp = level.getLevelingXp(sender.id, _level)
+                const ppLink = await aruga.getProfilePicFromServer(sender.id)
+                if (ppLink === undefined) {
+                    var pepe = errorImg
+                } else {
+                    pepe = ppLink
+                }
+                const requiredXp = 5 * Math.pow(userLevel, 2) + 50 * userLevel + 100
+                const rank = new canvas.Rank()
+                    .setAvatar(pepe)
+                    .setLevel(userLevel)
+                    .setLevelColor('#ffa200', '#ffa200')
+                    .setRank(Number(level.getUserRank(sender.id, _level)))
+                    .setCurrentXP(userXp)
+                    .setOverlay('#000000', 100, false)
+                    .setRequiredXP(requiredXp)
+                    .setProgressBar('#ffa200', 'COLOR')
+                    .setBackground('COLOR', '#000000')
+                    .setUsername(pushname)
+                    .setDiscriminator(sender.id.substring(6, 10))
+                rank.build()
+                    .then(async (buffer) => {
+                        const imageBase64 = `data:image/png;base64,${buffer.toString('base64')}`
+                        await aruga.sendImage(from, imageBase64, 'rank.png', '', id)
+                    })
+                    .catch(async (err) => {
+                        console.error(err)
+                        await aruga.reply(from, 'Error!', id)
+                    })
+            break
+            case prefix+'leveling':
+                if (!isGroupMsg) return await aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam Grup!', id)
+                if (!isGroupAdmins) return await aruga.reply(from, 'Fitur ini hanya bisa digunakan oleh Admin Grup!', id)
+                if (ar[0] === 'on') {
+                    if (isLevelingOn) return await aruga.reply(from, 'Fitur leveling sudah diaktifkan pada grup ini sebelumnya', id)
+                    _leveling.push(groupId)
+                    fs.writeFileSync('./lib/database/group/leveling.json', JSON.stringify(_leveling))
+                    await aruga.reply(from, 'Fitur Leveling berhasil diaktifkan didalam grup ini', id)
+                } else if (ar[0] === 'off') {
+                    _leveling.splice(groupId, 1)
+                    fs.writeFileSync('./lib/database/group/leveling.json', JSON.stringify(_leveling))
+                    await aruga.reply(from, 'Fitur Leveling berhasil dinonaktifkan didalam grup ini', id)
+                } else {
+                    await aruga.reply(from, 'Pilih on atau off admin cakep', id)
+                }
+            break
+            case prefix+'leaderboard':
+                if (!isGroupMsg) return await aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam Grup!', id)
+                const resp = _level
+                _level.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
+                let leaderboard = '*── 「 LEADERBOARDS 」 ──*\n\n'
+                try {
+                    for (let i = 0; i < 10; i++) {
+                        var roles = 'Copper V'
+                        if (resp[i].level >= 5) {
+                            roles = 'Copper IV'
+                        } else if (resp[i].level >= 10) {
+                            roles = 'Copper III'
+                        } else if (resp[i].level >= 15) {
+                            roles = 'Copper II'
+                        } else if (resp[i].level >= 20) {
+                            roles = 'Copper I'
+                        } else if (resp[i].level >= 25) {
+                            roles = 'Silver V'
+                        } else if (resp[i].level >= 30) {
+                            roles = 'Silver IV'
+                        } else if (resp[i].level >= 35) {
+                            roles = 'Silver III'
+                        } else if (resp[i].level >= 40) {
+                            roles = 'Silver II'
+                        } else if (resp[i].level >= 45) {
+                            roles = 'Silver I'
+                        } else if (resp[i].level >= 50) {
+                            roles = 'Gold V'
+                        } else if (resp[i].level >= 55) {
+                            roles = 'Gold IV'
+                        } else if (resp[i].level >= 60) {
+                            roles = 'Gold III'
+                        } else if (resp[i].level >= 65) {
+                            roles = 'Gold II'
+                        } else if (resp[i].level >= 70) {
+                            roles = 'Gold I'
+                        } else if (resp[i].level >= 75) {
+                            roles = 'Platinum V'
+                        } else if (resp[i].level >= 80) {
+                            roles = 'Platinum IV'
+                        } else if (resp[i].level >= 85) {
+                            roles = 'Platinum III'
+                        } else if (resp[i].level >= 90) {
+                            roles = 'Platinum II'
+                        } else if (resp[i].level >= 95) {
+                            roles = 'Platinum I'
+                        } else if (resp[i].level > 100) {
+                            roles = 'Exterminator'
+                        }
+                        leaderboard += `${i + 1}. wa.me/${_level[i].id.replace('@c.us', '')}\n➸ *XP*: ${_level[i].xp} *Level*: ${_level[i].level}\n➸ *Role*: ${roles}\n\n`
+                    }
+                    await aruga.reply(from, leaderboard, id)
+                } catch (err) {
+                    console.error(err)
+                    await aruga.reply(from, 'Perlu setidaknya *10* user yang memiliki level di database!', id)
+                }
             break
         case prefix+'slightning':
             if (isMedia && type === 'image') {
@@ -1176,11 +1354,13 @@ module.exports = HandleMsg = async (aruga, message) => {
                     const ban = banned.includes(userid)
                     const blocked = await aruga.getBlockedIds()
                     const isblocked = blocked.includes(userid)
+					const myLevel = level.getLevelingLevel(userid, _level)
+					const exp = level.getLevelingXp(userid, _level)
                     const ct = await aruga.getContact(userid)
                     const isOnline = await aruga.isChatOnline(userid) ? '✔' : '❌'
                     var sts = await aruga.getStatus(userid)
                     const bio = sts
-					const premuser = prem.includes(userid) ? 'Premium' : 'Member'
+					const premuser = prem.includes(userid) ? 'Premium' : 'Free'
                     const admins = groupAdmins.includes(userid) ? 'Admin' : 'Member'
                     var found = false
                         Object.keys(pengirim).forEach((i) => {
@@ -1205,7 +1385,7 @@ module.exports = HandleMsg = async (aruga, message) => {
                         } else {
                         var nama = contact
                         } 
-                    const caption = `*Detail Member* ✨ \n\n● *Name :* ${nama}\n● *Bio :* ${bio.status}\n● *Chat link :* wa.me/${sender.id.replace('@c.us', '')}\n● *Premium :* ${premuser}\n● *Role :* ${adm}\n● *Banned by Bot :* ${ban ? '✔' : '❌'}\n● *Blocked by Bot :* ${isblocked ? '✔' : '❌'}\n● *Chat with bot :* ${isOnline}`
+                    const caption = `*Detail Member* ✨ \n\n● *Name :* ${nama}\n● *Bio :* ${bio.status}\n● *Level :* ${myLevel}\n● *Xp :* ${exp}\n● *Chat link :* wa.me/${sender.id.replace('@c.us', '')}\n● *Premium :* ${premuser}\n● *Role :* ${adm}\n● *Banned by Bot :* ${ban ? '✔' : '❌'}\n● *Blocked by Bot :* ${isblocked ? '✔' : '❌'}\n● *Chat with bot :* ${isOnline}`
                     aruga.sendFileFromUrl(from, pfp, 'dp.jpg', caption, id)
                     }
                     }
@@ -5815,26 +5995,32 @@ _Desc di update oleh : @${chat.groupMetadata.descOwner.replace('@c.us','')} pada
                     var namae = pushname
                     var sts = await aruga.getStatus(author)
                     var adm = isGroupAdmins
+					const userLevel = level.getLevelingLevel(sender.id, _level)
+					const myXp = level.getLevelingXp(sender.id, _level)
+                    const reqXp = 5 * Math.pow(userLevel, 2) + 50 * 1 + 100
                     const { status } = sts
                     if (pic == undefined) {
-                    var pfp = errorurl
+                    var pfp = errorImg
                     } else {
                         var pfp = pic
                     } 
-                    await aruga.sendFileFromUrl(from, pfp, 'pfp.jpg', `*User Profile* ✨️ \n\n➸ *Username: ${namae}*\n\n➸ *User Info: ${status}*\n\n➸ *Admin Group: ${adm}*\n\n`)
+                    await aruga.sendFileFromUrl(from, pfp, 'pfp.jpg', `*User Profile* ✨️ \n\n➸ *Username: ${namae}*\n\n➸ *Level: ${userLevel}*\n\n➸ *Xp : ${myXp} / ${reqXp}*\n\n➸ *User Info: ${status}*\n\n➸ *Admin Group: ${adm}*\n\n`)
                  } else if (quotedMsg) {
                  var qmid = quotedMsgObj.sender.id
                  var pic = await aruga.getProfilePicFromServer(qmid)
                  var namae = quotedMsgObj.sender.name
                  var sts = await aruga.getStatus(qmid)
                  var adm = isGroupAdmins
+				 const userLevel = level.getLevelingLevel(qmid, _level)
+				 const myXp = level.getLevelingXp(qmid, _level)
+				 const reqXp = 5 * Math.pow(userLevel, 2) + 50 * 1 + 100
                  const { status } = sts
                   if (pic == undefined) {
-                  var pfp = errorurl
+                  var pfp = errorImg
                   } else {
                   var pfp = pic
                   } 
-                  await aruga.sendFileFromUrl(from, pfp, 'pfp.jpg', `*User Profile* ✨️ \n\n➸ *Username: ${namae}*\n\n➸ *User Info: ${status}*\n\n➸ *Admin Group: ${adm}*\n\n`)
+				  await aruga.sendFileFromUrl(from, pfp, 'pfp.jpg', `*User Profile* ✨️ \n\n➸ *Username: ${namae}*\n\n➸ *Level: ${userLevel}*\n\n➸ *Xp : ${myXp} / ${reqXp}*\n\n➸ *User Info: ${status}*\n\n➸ *Admin Group: ${adm}*\n\n`)
                  }
                 }
                 break

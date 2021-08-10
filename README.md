@@ -29,6 +29,11 @@
 </p>
 </div>
 
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/75126993/128907522-ad352035-dee4-4a7f-ac9a-84b8f49b434e.gif" />
+ </p>
+
+
 # Donate
 - [Saweria](https://saweria.co/thoriqazzikra)
 - [Paypal](https://www.paypal.com/paypalme/thoriqazzikra)

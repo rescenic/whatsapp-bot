@@ -4972,21 +4972,20 @@ console.log(err)
 		})
 		break
         case prefix+'tahta':
-            if (!isGroupMsg) return aruga.reply(from, 'Perintah ini hanya bisa di gunakan dalam group!', id)
              const jreng = body.slice(7)
              if (!jreng) return aruga.reply(from, `Kirim perintah *${prefix}tahta [teks]*\n\nContoh *${prefix}tahta elaina*`, id)
              if (jreng.length > 7) return aruga.reply(from, 'Maksimal 7 Huruf!', id)
-             aruga.sendText(from, '_Sedang diproses, mohon tunggu sebentar!..._', id)
+             aruga.reply(from, '_Sedang diproses, mohon tunggu sebentar!..._', id)
              const tahtuy = `https://api.zeks.xyz/api/hartatahta?text=${jreng}&apikey=${apikeyvinz}`
-		aruga.sendFileFromUrl(from, tahtuy, `${jreng}.jpg`, `*_Harta_*\n*_Tahta_*\n*_${jreng}_*`, id)
-		aruga.sendImageAsSticker(from, tahtuy, { author: author, pack: pack, keepScale: true })
-		.catch((err) => {
-			aruga.reply(from, 'Error', id)
-	})
-	.catch(() => {
-		aruga.reply(from, 'Error', id)
-	})
-             break
+			 aruga.sendFileFromUrl(from, tahtuy, `${jreng}.jpg`, `*_Harta_*\n*_Tahta_*\n*_${jreng}_*`, id)
+			 aruga.sendImageAsSticker(from, tahtuy, { author: author, pack: pack, keepScale: true })
+		.	 catch((err) => {
+			   aruga.reply(from, 'Error', id)
+			})
+			 .catch(() => {
+			   aruga.reply(from, 'Error', id)
+			})
+            break
         case prefix+'family100':
             if (!isGroupMsg) return aruga.reply(from, 'Perintah ini hanya bisa di gunakan dalam group!', id)
             try {

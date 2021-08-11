@@ -14,7 +14,7 @@
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FUrbaeexyz%2Fwa-bot&count_bg=%23476FFF&title_bg=%23868080&icon=openbadges.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
 
 <p align="left">
-<a href="https://github.com/Urbaeexyz/whatsapp-bot2">
+<a href="https://github.com/Urbaeexyz/wa-bot">
  <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=Urbaeexyz&repo=wa-bot&theme=dark" />
   </p>
  <p align="center">
@@ -24,13 +24,13 @@
   <a href="https://github.com/Urbaeexyz/wa-bot#Information">Information</a> •
   <a href="https://github.com/Urbaeexyz/wa-bot#features">Features</a> •
   <a href="https://github.com/Urbaeexyz/wa-bot#To-Do">To-Do</a> •
-  <a href="https://github.com/Urbaeexyz/wa-bot#Troubleshooting">Troubleshooting</a>•
+  <a href="https://github.com/Urbaeexyz/wa-bot#Troubleshooting">Troubleshooting</a> •
   <a href="https://github.com/Urbaeexyz/wa-bot#thanks-to">Thanks to</a>
 </p>
 </div>
 
 <p align="center">
- <img src="https://user-images.githubusercontent.com/75126993/128907522-ad352035-dee4-4a7f-ac9a-84b8f49b434e.gif" />
+ <img src="https://user-images.githubusercontent.com/75126993/128907522-ad352035-dee4-4a7f-ac9a-84b8f49b434e.gif" width="600" height="338"/>
  </p>
 
 
@@ -100,8 +100,8 @@ after running it you need to scan the qr
 - Change all apiKey on [this section](https://github.com/thoriqazzikra/whatsapp-bot2/blob/master/settings/api.json)
 - Get Api NoBackground on [this website](https://www.remove.bg/)
 - Get Api ScreenShot on [this website](https://apiflash.com/)
-- `vhtear`: VHTear API token. You can get it [here](https://api.vhtear.com/) by purchasing his API key.
-- `lolhuman`: LolHuman API token. you can get it [here](http://lolhuman.herokuapp.com/) by purchasing his API key.
+- `Vhtear`: VHTear API token. You can get it [here](https://api.vhtear.com/) by purchasing his API key.
+- `Lolhuman`: LolHuman API token. you can get it [here](http://lolhuman.herokuapp.com/) by purchasing his API key.
 - `Onlydev`: Only Dev City API token. you can get it [here](https://onlydevcity.herokuapp.com/docs) by purchasing his API key.
 - `Dapuhy Api`: Dapuhy API token. you can get it [here](https://dapuhy-api.herokuapp.com/) by Req Apikey for free.
 ---
@@ -342,3 +342,4 @@ Fix Stuck on linux, install google chrome stable:
 - [ArugaZ](https://github.com/ArugaZ/whatsapp-bot)
 - [TobyG74](https://github.com/TobyG74/ElainaBOT)
 - [VideFrelan](https://github.com/VideFrelan/vfbot-wa)
+- [SlavyanDesu](https://github.com/SlavyanDesu)

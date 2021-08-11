@@ -10,8 +10,15 @@
 <a href="https://github.com/Urbaeexyz?tab=followers"><img title="Followers" src="https://img.shields.io/github/followers/Urbaeexyz?color=blue&style=flat-square"></a>
 <a href="https://github.com/Urbaeexyz/wa-bot/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Urbaeexyz/wa-bot?color=blue&style=flat-square"></a>
 <a href="https://github.com/Urbaeexyz/wa-bot/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Urbaeexyz/wa-bot?color=blue&style=flat-square"></a>
+<img src="https://img.shields.io/github/package-json/v/Urbaeexyz/wa-bot">
+<img src="https://img.shields.io/github/languages/top/Urbaeexyz/wa-bot">
+<img src="https://img.shields.io/github/search/Urbaeexyz/wa-bot/whatsapp-bot">
+<img src="https://img.shields.io/github/repo-size/Urbaeexyz/wa-bot">
+<img src="https://img.shields.io/github/issues/Urbaeexyz/wa-bot">
+<img src="https://img.shields.io/github/issues-closed/Urbaeexyz/wa-bot">
+<img src="https://img.shields.io/github/license/Urbaeexyz/wa-bot">
 <a href="https://github.com/Urbaeexyz/wa-bot/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Urbaeexyz/wa-bot?label=Watchers&color=blue&style=flat-square"></a>
-<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FUrbaeexyz%2Fwa-bot&count_bg=%23476FFF&title_bg=%23868080&icon=openbadges.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
+<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FUrbaeexyz%2Fwa-bot&count_bg=%23476FFF&title_bg=%23868080&icon=openbadges.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
 
 <p align="left">
  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Urbaeexyz&repo=wa-bot&bg_color=20,e96443,904e89&title_color=fff&text_color=fff&icon_color=fff&hide_border=true&show_icons=true&show_owner=true" />

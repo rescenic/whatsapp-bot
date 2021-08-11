@@ -3625,7 +3625,7 @@ try {
 	for (let i = 0; i < result.length; i++) {
 		xsz += `\n─────────────────\n\n• *Title:* ${result[i].judul}\n• *Views:* ${result[i].viewers}\n• *Info:* ${result[i].info}\n• *Url:* ${result[i].url}\n`
 	}
-	await aruga.sendFileFromUrl(from, result[0].thumbn, 'thumb.jpg', xsz, id)
+	await aruga.sendFileFromUrl(from, result[0].thumb, 'thumb.jpg', xsz, id)
 } catch (err) {
 	console.log(err)
 	aruga.reply(from, `Mungkin hasil pencarian yang anda inginkan tidak ada didalam website`, id)

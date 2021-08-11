@@ -338,7 +338,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 
         const mess = {
             wait: '_Waitt, lemme process this shit_',
-			prem: `Command Premium!\nHalo ${pushname} Mau menjadi user premium? ga mahal kok bang\n\n20rb = PREMIUM SAMPE KIAMAT\n\nJika anda berminat, silahkan chat pada Owner\n\nwa.me/62895334951166\n\nTrims~\n-Thoriq Azzikra`,
+			prem: `Command Premium!\nHalo ${pushname} Mau menjadi user premium? ga mahal kok bang\n\n20rb = PREMIUM SAMPE KIAMAT\n\nJika anda berminat, silahkan chat pada Owner\n\nwa.me/${ownerNumber.replace('@c.us', '')}\n\nTrims~\n-Thoriq Azzikra`,
             error: {
                 St: `[❗] Kirim gambar dengan caption *${prefix}sticker* atau tag gambar yang sudah dikirim`,
                 Ti: `[❗] Replay sticker dengan caption *${prefix}stickertoimg* atau tag sticker yang sudah dikirim`,
@@ -1021,6 +1021,7 @@ module.exports = HandleMsg = async (aruga, message) => {
             if (thndr.length > 10) return aruga.reply(from, '*Teks Terlalu Panjang!*\n_Maksimal 10 huruf!_', id)
             await aruga.sendFileFromUrl(from, `https://api.vhtear.com/thundertext?text=${thndr}&apikey=${vhtearkey}`, 'thndr.jpg', '', id)
             break
+		
         case prefix+'tebakgambar':
             if (!isGroupMsg) return aruga.reply(from, 'Perintah ini hanya bisa di gunakan dalam group!', id)
             try {
@@ -2927,6 +2928,24 @@ break
 					aruga.reply(from, `Error\nSilahkan gunakan ${prefix}ig2`, id)
 				})
                                 break
+							case prefix+'doujin':
+									if (!isPrem) return aruga.reply(from, mess.prem, id)
+									if (args.length == 0) return aruga.reply(from, `Mencari doujin gunakan ${prefix}doujin judul\nContoh : ${prefix}doujin my sister`, id)
+									const doujsearch = body.slice(8)
+									const douj = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/doujin?q=${doujsearch}&apikey=${hackapi}`)
+									const doujdata = douj.data
+									if (doujdata.status == false ) return aruga.reply(from, `Judul yang kamu cari tidak dapat ditemukan`, id)
+									const { result } = await doujdata
+									let doujtext = `*「  D O U J I N  」*\n`
+									for (let i = 0; i < result.length; i++) {
+										doujtext =+ `\n─────────────────\n\n*•Judul:* ${result[i].title}\n*•Rating:* ${result[i].rating}\n*•Status:* ${result[i].status}\n*•Url:* ${result[i].url}\n`
+									}
+									await aruga.sendFileFromUrl(from, result[0].thumb, 'thumb.jpg', doujtext, id)
+									.catch(err => {
+										console.log(err)
+										aruga.reply(from, 'Terjadi kesalahan, coba lagi nanti')
+									})
+								break
                             case prefix+'nhpdf':
                                 if (args.length == 0)return aruga.reply(from, `Kode nuklir tidak ditemukan\nUsage : ${prefix}nhpdf 20935`, id)
                                 rugaapi.nhpdf(args)
@@ -3281,6 +3300,60 @@ case prefix+'playlistyt':
 		console.log(err)
 	}
 	break
+	case prefix+'indoxxi':
+				if (args.length == 0) return aruga.reply(from, `Mencari film dari website indoxxi, gunakan ${prefix}indoxxi judul film`, id)
+				const inxxi = body.slice(9)
+				aruga.reply(from, mess.wait, id)
+				try {
+					const indoxxii = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/film/indoxxi?q=${inxxi}&apikey=${hackapi}`)
+					const indodata = indoxxii.data
+					if (indodata.status == false) return aruga.reply(from, 'Film yang kamu cari tidak ada', id)
+					const { result } = await indodata
+					let indotext = `*「 INDO XXI  」*\n`
+					for (let i = 0; i < result.length; i++) {
+						indotext += `\n─────────────────\n\n*•Title:* ${result[i].judul}\n*•Duration:* ${result[i].durtion}\n*•Rating:* ${result[i].rating}\n*•Quality:* ${result[i].quality}\n`
+					}
+					await aruga.sendFileFromUrl(from, result[0].thumb, 'thumb.jpg', indotext, id)
+				} catch (err) {
+					console.log(err)
+					aruga.reply(from, err.message, id)
+				}
+				break
+case prefix+'r18+':
+if (!isPrem) return aruga.reply(from, mess.prem, id)
+fetchJson(`https://h4ck3rs404-api.herokuapp.com/api/randomp?apikey=${hackapi}`)
+.then(async(res) => {
+	if (res.status == false) return aruga.reply(from, 'something wrong, i can feel it:v', id)
+	await aruga.sendFileFromUrl(from, res.result.url, '', `${pushname} mesum`, id)
+	.catch(err => {
+		console.log(err)
+		aruga.reply(from, 'something wrong i can feel it:v', id)
+	})
+})
+.catch(err => {
+	console.log(err)
+	aruga.reply(from, 'something wrong i can feel it:v', id)
+})
+break
+case prefix+'trendfilm':
+case prefix+'trendingfilm':
+case prefix+'filmtrending':
+case prefix+'filmtrend':
+aruga.reply(from, mess.wait, id)
+try {
+	const trendata = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/news/filmtrending?apikey=${hackapi}`)
+	const trenjs = trendata.data
+	if (trenjs.status == false) return aruga.reply(from, 'Film yang kamu cari ngga ada', id)
+	const { result } = await trenjs
+	let trenword = `*「 TRENDING FILM  」*\n`
+	for (let i = 0; i < result.length; i++) {
+		trenword += `\n─────────────────\n\n*•Film:* ${result[i].title}\n*•Rank:* ${result[i].rank}\n*•Views:* ${result[i].penonton}\n*•Url:* ${result[i].link}\n`
+	}
+	await aruga.reply(from, trenword, id)
+} catch (err) {
+	console.log(err)
+	aruga.reply(from, 'Terjadi kesalahan, silahkan coba lagi', id)
+}
 case prefix+'lk21':
 	if (args.length == 0) return aruga.reply(from, `Untuk mencari sebuah film dari website LK21, gunakan ${prefix}lk21 judul film`, id)
 	const lksearch = body.slice(6)
@@ -3545,19 +3618,71 @@ if (args.length == 0) return aruga.reply(from, `Mencari video dari website XNXX,
 const xsch = body.slice(12)
 aruga.reply(from, mess.wait, id)
 try {
-	const fucth = await axios.get(`http://lolhuman.herokuapp.com/api/xnxxsearch?apikey=${lolhuman}&query=${xsch}`)
+	const fucth = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/xnxx-search?q=${xsch}&apikey=${hackapi}`)
 	const fucth2 = fucth.data
 	const { result } = fucth2
 	let xsz = `*「 XNXX 」*\n`
 	for (let i = 0; i < result.length; i++) {
-		xsz += `\n─────────────────\n\n• *Title:* ${result[i].title}\n• *Views:* ${result[i].views}\n• *Duration:* ${result[i].duration}\n• *Uploader:* ${result[i].uploader}\n• *Link:* ${result[i].link}\n`
+		xsz += `\n─────────────────\n\n• *Title:* ${result[i].judul}\n• *Views:* ${result[i].viewers}\n• *Info:* ${result[i].info}\n• *Url:* ${result[i].url}\n`
 	}
-	await aruga.sendFileFromUrl(from, result[0].thumbnail, 'thumb.jpg', xsz, id)
+	await aruga.sendFileFromUrl(from, result[0].thumbn, 'thumb.jpg', xsz, id)
 } catch (err) {
 	console.log(err)
 	aruga.reply(from, `Mungkin hasil pencarian yang anda inginkan tidak ada didalam website`, id)
 }
 break
+case prefix+'tebakanime':
+const animesoal = await fetchJson(`https://h4ck3rs404-api.herokuapp.com/api/kuis/tebakanime?apikey=${hackapi}`)
+if (animesoal.status == false) return aruga.reply(from, 'Lagi error', id)
+const imageanime = animesoal.result.image
+const jawabananime = `Result : ${animesoal.result.name}\nDeskripsi : ${animesoal.result.desc}`
+aruga.sendFileFromUrl(from, imageanime, 'image.jpg', `Tebak chara apa ini`, id)
+await sleep(10000)
+aruga.sendText(from, '_30 detik lagi_')
+await sleep(10000)
+aruga.sendText(from, '_20 detik lagi_')
+await sleep(10000)
+aruga.sendText(from, '_10 detik lagi_')
+await sleep(10000)
+aruga.reply(from, jawabananime, id)
+break
+case prefix+'phsearch':
+if (!isPrem) return aruga.reply(from, mess.prem, id)
+if (args.length == 0) return aruga.reply(from, `Mencari bokep dari website Pornhub, gunakan ${prefix}phsearch judul\nContoh: ${prefix}phsearch step sister`, id)
+const phword = body.slice(10)
+aruga.reply(from, mess.wait, id)
+const phapi = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/phub-search?q=${phword}&apikey=${hackapi}`)
+const phdata = phapi.data
+if (phdata.status == false) return aruga.reply(from, 'Film yang anda cari tidak dapat ditemukan', id)
+const { result } = await phdata
+let phtext = `*「 P O R N H U B 」*\n`
+for (let i = 0; i < result.length; i++) {
+	phtext += `\n─────────────────\n\n•*Title:* ${result[i].title}\n•*Views:* ${result[i].views}\n•*Channel:* ${result[i].author}\n•*Uploaded:* ${result[i].publish}\n•*Url:* ${result[i].url}\n`
+}
+await aruga.sendFileFromUrl(from, result[0].thumb, 'thumbnail.jpg', phtext, id)
+.catch(err => {
+	console.log(err)
+	aruga.reply(from, 'Terjadi kesalahan, coba lagi nanti', id)
+})
+break
+case prefix+'appstore':
+	if (args.length == 0) return aruga.reply(from, `Mencari aplikasi dari AppStore!\nGunakan ${prefix}appstore nama aplikasi\nContoh: ${prefix}appstore instagram`, id)
+	const apps = body.slice(10)
+	aruga.reply(from, mess.wait, id)
+	const appslink = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/appstore?q=${apps}&apikey=${hackapi}`)
+	const appsdata = appslink.data
+	if (appsdata.status === false) return aruga.reply(from, `Pencarian tidak dapat ditemukan`, id)
+	const { result } = await appsdata
+	let apptext = `*「 App Store 」*\n`
+	for (let i = 0; i < result.length; i++) {
+		apptext += `\n─────────────────\n\n• *Nama Apk:* ${result[i].title}\n• *Deskripsi:* ${result[i].desc}\n• *Url:* ${result[i].url}\n`
+	}
+	await aruga.sendFileFromUrl(from, result[0].thumb, 'thumb.jpg', apptext, id)
+	.catch(err => {
+		console.log(err)
+		aruga.reply(from, 'Terjadi kesalahan, coba lagi nanti', id)
+	})
+	break
 case prefix+'ytsearch':
     if (args.length === 0) return aruga.reply(from, `Kirim perintah *${prefix}ytsearch [ Query ]*, Contoh : ${prefix}ytsearch alan walker alone`)
     const ytsher = body.slice(10)
@@ -4087,30 +4212,24 @@ case prefix+'ytsearch':
 			console.log(err)
 		})
 		break
-		case prefix+'stalking':
-		if (args.length == 0) return aruga.reply(from, `Untuk men-stalk akun ig seseorang, ketik ${prefix}stalking username\nComtoh : ${prefix}stalking anyageraldind`, id)
-		const serh1 = await rugaapi.stikig(args[0])
-		const serh2 = await rugaapi.stikigpict(args[0])
-		await aruga.sendFileFromUrl(from, serh2, '', serh1, id)
-		.catch(() => {
-			aruga.reply(from, `Maaf, akun tidak dapat ditemukan! Mungkin bersifat private!`, id)
-	})
-		break
             case prefix+'stalkig':
+			case prefix+'stalking':
                 if (args.length == 0) return aruga.reply(from, `Untuk men-stalk akun instagram seseorang\nketik ${prefix}stalkig [username]\ncontoh: ${prefix}stalkig ini.arga`, id)
                 aruga.reply(from, mess.wait, id)
-				const searchig = body.slice(9)
-				axios.get(`https://zahirr-web.herokuapp.com/api/ig/stalk?username=${searchig}&apikey=zahirgans`)
+				fetchJson(`https://h4ck3rs404-api.herokuapp.com/api/igstalk?usrnm=${q}&apikey=${hackapi}`)
 				.then(async(res) => {
-					const picture = res.data.result.Profile_pic
-					const Biodata = res.data.result.Biodata
-					const jumlahfol = res.data.result.Jumlah_Followers
-					const jumlahfollow = res.data.result.Jumlah_Following
-					const jumlahpost = res.data.result.Jumlah_Post
-					const Namaig = res.data.result.Name
-					const UsernameIG = res.data.result.Username
-					const cption = `• *Username:* ${UsernameIG}\n• *Name:* ${Namaig}\n• *Followers:* ${jumlahfol}\n• *Following:* ${jumlahfollow}\n• *Total Post:* ${jumlahpost}\n\n• *Bio:* ${Biodata}`
-					await aruga.sendFileFromUrl(from, res.data.result.Profile_pic, '', cption, id)
+					const picture = res.result.hd_profile_pic_url_info.url
+					const externalurl = res.result.external_url
+					const igverif = res.result.is_verified
+					const igprivate = res.result.is_private
+					const Biodata = res.result.biography
+					const followers1 = res.result.follower_count
+					const following1 = res.result.following_count
+					const jumlahpost = res.result.media_count
+					const nameig = res.result.full_name
+					const UsernameIG = res.result.username
+					const cption = `• *Username:* ${UsernameIG}\n• *Name:* ${nameig}\n• *Verified:* ${igverif}\n• *Private:* ${igprivate}• *Followers:* ${followers1}\n• *Following:* ${following1}\n• *Total Post:* ${jumlahpost}\n• *External Url:* ${externalurl}\n\n• *Bio:* ${Biodata}`
+					await aruga.sendFileFromUrl(from, picture, '', cption, id)
 					.catch(() => {
                     aruga.reply(from, 'Akun tidak dapat ditemukan...', id)
                 })
@@ -4140,13 +4259,7 @@ case prefix+'ytsearch':
             if (args.length == 0) return aruga.reply(from, `Kirim perintah *${prefix}ssweb [link website]\nContoh: ${prefix}ssweb2 https://github.com/Urbaeexyz/wa-bot`, id)
 			const webss = body.slice(7)
 			aruga.reply(from, mess.wait, id)
-			await aruga.sendFileFromUrl(from, `http://lolhuman.herokuapp.com/api/ssweb?apikey=${lolhuman}&url=${webss}`, 'img.jpg' , '', id)
-			break
-        case prefix+'ssweb2':
-			if (args.length == 0) return aruga.reply(from, `Kirim perintah ${prefix}ssweb2 [link website]\nContoh: ${prefix}ssweb2 https://github.com/Urbaeexyz/wa-bot`, id)
-			const webss2 = body.slice(8)
-			aruga.reply(from, mess.wait, id)
-			await aruga.sendFileFromUrl(from, `https://docs-jojo.herokuapp.com/api/ssweb?url=${webss2}&device=computer`, 'img.jpg', `nih screenshot-an ${webss2} nya`, id)
+			await aruga.sendFileFromUrl(from, `https://h4ck3rs404-api.herokuapp.com/api/ssweb?url=${webss}&apikey=${hackapi}`, 'img.jpg' , `nih screenshot-an ${webss} nya`, id)
 			break
 			case prefix+'fb3':
 			case prefix+'facebook3':
@@ -5706,9 +5819,47 @@ _Desc di update oleh : @${chat.groupMetadata.descOwner.replace('@c.us','')} pada
 						console.log(err)
 					})
 					break
-                    case prefix+'mtk':
-                        if (args.length === 0) return aruga.reply(from, `[❗] Kirim perintah *${prefix}math [ Angka ]*\nContoh : ${prefix}mtk 12 * 12\n*NOTE* :\n- Untuk Perkalian Menggunakan *\n- Untuk Pertambahan Menggunakan +\n- Untuk Pengurangan Mennggunakan -\n- Untuk Pembagian Menggunakan /`)
-                        const mtk = body.slice(5)
+					case prefix+'math':
+					case prefix+'mtk':
+					if (args.length === 0) return aruga.reply(from, `Fitur untuk bermain soal matematika\nGunakan ${prefix}mtk [mode]\nContoh: ${prefix}mtk easy\n\nMode yang tersedia :\n- noob\n- easy\n- medium\n- hard\n- extreme\n- impossible\n- impossible2\n- pro`, id)
+					axios.get(`https://h4ck3rs404-api.herokuapp.com/api/kuis/math?mode=${args[0]}&apikey=${hackapi}`)
+					.then(async(res) => {
+						if (res.data.status == false) return aruga.reply(from, res.data.message, id)
+						const pertanyaan = `Jawab soal berikut\nSoal : ${res.data.result.soal}\nPoin : ${res.data.result.poin}`
+						const jawabanmtk = `Jawaban : ${res.data.result.jawaban}`
+						aruga.reply(from, pertanyaan, id)
+						await sleep(10000)
+						aruga.sendText(from, '_50 detik lagi_', id)
+						await sleep(10000)
+						aruga.sendText(from, '_40 detik lagi_', id)
+						await sleep(10000)
+						aruga.sendText(from, '_30 detik lagi_', id)
+						await sleep(10000)
+						aruga.sendText(from, '_20 detik lagi_', id)
+						await sleep(10000)
+						aruga.sendText(from, '_10 detik lagi_', id)
+						await sleep(10000)
+						aruga.reply(from, `Timeout!!\n${jawabanmtk}`, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, 'Terjadi kesalahan', id)
+						})
+					})
+						break
+					case prefix+'twister':
+						fetchJson(`https://h4ck3rs404-api.herokuapp.com/api/kuis/twister?apikey=${hackapi}`)
+						.then(async(res) => {
+							if (res.status == false) return aruga.reply(from, 'Terjadi kesalahan, silahkan ulangi', id)
+							aruga.reply(from, res.result, id)
+							.catch(err => {
+								console.log(err)
+								aruga.reply(from, 'Sedang error', id)
+							})
+						})
+						break
+                    case prefix+'kalkulator':
+                        if (args.length === 0) return aruga.reply(from, `[❗] Kirim perintah *${prefix}kalkulator [ Angka ]*\nContoh : ${prefix}kalkulator 12 * 12\n*NOTE* :\n- Untuk Perkalian Menggunakan *\n- Untuk Pertambahan Menggunakan +\n- Untuk Pengurangan Mennggunakan -\n- Untuk Pembagian Menggunakan /`)
+                        const mtk = body.slice(12)
 						axios.get(`https://api.vhtear.com/calculator?value=${mtk}&apikey=${vhtearkey}`)
 						.then(async(res) => {
 							const jawabannya = res.data.result.data

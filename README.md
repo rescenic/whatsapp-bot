@@ -102,6 +102,7 @@ after running it you need to scan the qr
 - Change memberLimit on [this section](https://github.com/thoriqazzikra/whatsapp-bot/blob/main/settings/setting.json)
 - Change menu on [this section](https://github.com/Urbaeexyz/whatsapp-bot/blob/main/lib/menu.js#L32)
 - `Vhtear`: VHTear API token. You can get it [here](https://api.vhtear.com/) by purchasing his API key.
+- `H4ck3rs404`: H4ck3rs404 API token. you can visit [here](https://h4ck3rs404-api.herokuapp.com/) 
 - `Lolhuman`: LolHuman API token. you can get it [here](http://lolhuman.herokuapp.com/) by purchasing his API key.
 - `Onlydev`: Only Dev City API token. you can get it [here](https://onlydevcity.herokuapp.com/docs) by purchasing his API key.
 - `Dapuhy Api`: Dapuhy API token. you can get it [here](https://dapuhy-api.herokuapp.com/) by Req Apikey for free.

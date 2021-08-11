@@ -267,8 +267,6 @@ module.exports = HandleMsg = async (aruga, message) => {
         const isAutoStikerOn = _autostiker.includes(chat.id)
         const isImage = type === 'image'
         const isPrem = prem.includes(pengirim)
-	const authorr = '@thoriqazzikra_'
-	const pack = 'Urbaeexyz'
         
         //
         if (isCmd && !isGroupMsg) { console.log(color('[EXEC]', 'magenta'), color(moment(t * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`, 'aqua'), 'from', color(`${pushname}`, 'magenta'))}
@@ -459,18 +457,18 @@ module.exports = HandleMsg = async (aruga, message) => {
         //fitur anti link
         if (isGroupMsg && GroupLinkDetector && !isGroupAdmins && !isOwner){
             if (chats.match(/(https:\/\/chat.whatsapp.com)/gi)) {
-				const inviteLink1 = await aruga.getGroupInviteLink(groupId);
-				if (chats.includes(inviteLink1)) return aruga.reply(from, `Ini Link Group *${name}* Kamu tidak akan dikick`, id)
-                const check = await aruga.inviteInfo(chats);
-                if (!check) {
-                    return
-                } else {
-                    aruga.reply(from, '*[GROUP LINK DETECTOR]*\nKamu mengirimkan link grup chat, maaf kamu di kick dari grup :(', id).then(() => {
-                        aruga.removeParticipant(groupId, sender.id)
-                    })
-                }
-            }
-        }
+	    const inviteLink1 = await aruga.getGroupInviteLink(groupId);
+	    if (chats.includes(inviteLink1)) return aruga.reply(from, `Ini Link Group *${name}* Kamu tidak akan dikick`, id)
+            const check = await aruga.inviteInfo(chats);
+             if (!check) {
+               return
+             } else {
+                aruga.reply(from, '*[GROUP LINK DETECTOR]*\nKamu mengirimkan link grup chat, maaf kamu di kick dari grup :(', id).then(() => {
+                aruga.removeParticipant(groupId, sender.id)
+                })
+               }
+              }
+             }
 
         // Leveling [BETA] by Slavyan
         if (isGroupMsg && !level.isGained(sender.id) && !isBanned && isLevelingOn) {

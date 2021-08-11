@@ -8,30 +8,30 @@
 <a href="https://github.com/Urbaeexyz"><img title="Author" src="https://img.shields.io/badge/AUTHOR-Thoriq-blue.svg?style=for-the-badge&logo=github"></a>
 <p align="center">
 <a href="https://github.com/Urbaeexyz?tab=followers"><img title="Followers" src="https://img.shields.io/github/followers/Urbaeexyz?color=blue&style=flat-square"></a>
-<a href="https://github.com/Urbaeexyz/wa-bot/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Urbaeexyz/wa-bot?color=blue&style=flat-square"></a>
-<a href="https://github.com/Urbaeexyz/wa-bot/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Urbaeexyz/wa-bot?color=blue&style=flat-square"></a>
-<img src="https://img.shields.io/github/package-json/v/Urbaeexyz/wa-bot">
-<img src="https://img.shields.io/github/languages/top/Urbaeexyz/wa-bot">
-<img src="https://img.shields.io/github/search/Urbaeexyz/wa-bot/whatsapp-bot">
-<img src="https://img.shields.io/github/repo-size/Urbaeexyz/wa-bot">
-<img src="https://img.shields.io/github/issues/Urbaeexyz/wa-bot">
-<img src="https://img.shields.io/github/issues-closed/Urbaeexyz/wa-bot">
-<img src="https://img.shields.io/github/license/Urbaeexyz/wa-bot">
-<a href="https://github.com/Urbaeexyz/wa-bot/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Urbaeexyz/wa-bot?label=Watchers&color=blue&style=flat-square"></a>
-<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FUrbaeexyz%2Fwa-bot&count_bg=%23476FFF&title_bg=%23868080&icon=openbadges.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
+<a href="https://github.com/Urbaeexyz/wa-bot/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Urbaeexyz/whatsapp-bot?color=blue&style=flat-square"></a>
+<a href="https://github.com/Urbaeexyz/wa-bot/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Urbaeexyz/whatsapp-bot?color=blue&style=flat-square"></a>
+<img src="https://img.shields.io/github/package-json/v/Urbaeexyz/whatsapp-bot">
+<img src="https://img.shields.io/github/languages/top/Urbaeexyz/whatsapp-bot">
+<img src="https://img.shields.io/github/search/Urbaeexyz/whatsapp-bot/whatsapp-bot">
+<img src="https://img.shields.io/github/repo-size/Urbaeexyz/whatsapp-bot">
+<img src="https://img.shields.io/github/issues/Urbaeexyz/whatsapp-bot">
+<img src="https://img.shields.io/github/issues-closed/Urbaeexyz/whatsapp-bot">
+<img src="https://img.shields.io/github/license/Urbaeexyz/whatsapp-bot">
+<a href="https://github.com/Urbaeexyz/whatsapp-bot/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Urbaeexyz/whatsapp-bot?label=Watchers&color=blue&style=flat-square"></a>
+<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FUrbaeexyz%2Fwhatsapp-bot&count_bg=%23476FFF&title_bg=%23868080&icon=openbadges.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
 
 <p align="left">
- <img src="https://github-readme-stats.vercel.app/api/pin/?username=Urbaeexyz&repo=wa-bot&bg_color=20,e96443,904e89&title_color=fff&text_color=fff&icon_color=fff&hide_border=true&show_icons=true&show_owner=true" />
+ <img src="https://github-readme-stats.vercel.app/api/pin/?username=Urbaeexyz&repo=whatsapp-bot&bg_color=20,e96443,904e89&title_color=fff&text_color=fff&icon_color=fff&hide_border=true&show_icons=true&show_owner=true" />
   </p>
  <p align="center">
-  <a href="https://github.com/Urbaeexyz/wa-bot#Requirements">Requirements</a> •
-  <a href="https://github.com/Urbaeexyz/wa-bot#install">Installation</a> •
-  <a href="https://github.com/Urbaeexyz/wa-bot#Usage">Usage</a> •
-  <a href="https://github.com/Urbaeexyz/wa-bot#Information">Information</a> •
-  <a href="https://github.com/Urbaeexyz/wa-bot#features">Features</a> •
-  <a href="https://github.com/Urbaeexyz/wa-bot#To-Do">To-Do</a> •
-  <a href="https://github.com/Urbaeexyz/wa-bot#Troubleshooting">Troubleshooting</a> •
-  <a href="https://github.com/Urbaeexyz/wa-bot#thanks-to">Thanks to</a>
+  <a href="https://github.com/Urbaeexyz/whatsapp-bot#Requirements">Requirements</a> •
+  <a href="https://github.com/Urbaeexyz/whatsapp-bot#install">Installation</a> •
+  <a href="https://github.com/Urbaeexyz/whatsapp-bot#Usage">Usage</a> •
+  <a href="https://github.com/Urbaeexyz/whatsapp-bot#Information">Information</a> •
+  <a href="https://github.com/Urbaeexyz/whatsapp-bot#features">Features</a> •
+  <a href="https://github.com/Urbaeexyz/whatsapp-bot#To-Do">To-Do</a> •
+  <a href="https://github.com/Urbaeexyz/whatsapp-bot#Troubleshooting">Troubleshooting</a> •
+  <a href="https://github.com/Urbaeexyz/whatsapp-bot#thanks-to">Thanks to</a>
 </p>
 </div>
 
@@ -63,7 +63,7 @@
 - [Git](https://git-scm.com/download)
 - [FFmpeg](https://github.com/BtbN/FFmpeg-Builds/releases)
 
-# FFMPEG LINUX/UBUNTU SERVER 
+# FFMPEG LINUX/UBUNTU SSH
 ```sudo apt install ffmpeg```
 Setelah diinstal Ketik ini di Terminal
 ```ffmpeg```
@@ -77,8 +77,8 @@ This project require NodeJS v12.
 Clone this project
 
 ```bash
-> git clone https://github.com/Urbaeexyz/wa-bot.git
-> cd wa-bot
+> git clone https://github.com/Urbaeexyz/whatsapp-bot.git
+> cd whatsapp-bot
 ```
 
 Install the dependencies:
@@ -97,15 +97,10 @@ Run the Whatsapp bot
 after running it you need to scan the qr
 
 ### Information
-- Change ownerNumber on HandleMsg.js
-- Change groupLimit on [this section](https://github.com/thoriqazzikra/whatsapp-bot2/blob/master/settings/setting.json#L3)
-- Change memberLimit on [this section](https://github.com/thoriqazzikra/whatsapp-bo2t/blob/master/settings/setting.json#L4)
-- Change prefix on HandleMsg.js
-- Change menu on [this section](https://github.com/Urbaeexyz/blob/main/lib/menu.js#L32)
-- Add kata kasar on [this section](https://github.com/thoriqazzikra/whatsapp-bot2/blob/master/lib/kataKotor.js#L8)
-- Change all apiKey on [this section](https://github.com/thoriqazzikra/whatsapp-bot2/blob/master/settings/api.json)
-- Get Api NoBackground on [this website](https://www.remove.bg/)
-- Get Api ScreenShot on [this website](https://apiflash.com/)
+- Change ownerNumber on [HandleMsg.js](https://github.com/Urbaeexyz/whatsapp-bot/blob/main/HandleMsg.js#L259)
+- Change groupLimit on [this section](https://github.com/thoriqazzikra/whatsapp-bot/blob/main/settings/setting.json)
+- Change memberLimit on [this section](https://github.com/thoriqazzikra/whatsapp-bot/blob/main/settings/setting.json)
+- Change menu on [this section](https://github.com/Urbaeexyz/whatsapp-bot/blob/main/lib/menu.js#L32)
 - `Vhtear`: VHTear API token. You can get it [here](https://api.vhtear.com/) by purchasing his API key.
 - `Lolhuman`: LolHuman API token. you can get it [here](http://lolhuman.herokuapp.com/) by purchasing his API key.
 - `Onlydev`: Only Dev City API token. you can get it [here](https://onlydevcity.herokuapp.com/docs) by purchasing his API key.

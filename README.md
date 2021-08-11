@@ -10,13 +10,13 @@
 <a href="https://github.com/Urbaeexyz?tab=followers"><img title="Followers" src="https://img.shields.io/github/followers/Urbaeexyz?color=blue&style=flat-square"></a>
 <a href="https://github.com/Urbaeexyz/whatsapp-bot/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Urbaeexyz/whatsapp-bot?color=blue&style=flat-square"></a>
 <a href="https://github.com/Urbaeexyz/whatsapp-bot/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Urbaeexyz/whatsapp-bot?color=blue&style=flat-square"></a>
-<img src="https://img.shields.io/github/package-json/v/Urbaeexyz/whatsapp-bot">
+<a href="https://github.com/Urbaeexyz/whatsapp-bot/blob/main/package.json#L3"> <img src="https://img.shields.io/github/package-json/v/Urbaeexyz/whatsapp-bot"></a>
 <img src="https://img.shields.io/github/languages/top/Urbaeexyz/whatsapp-bot">
 <img src="https://img.shields.io/github/search/Urbaeexyz/whatsapp-bot/whatsapp-bot">
 <img src="https://img.shields.io/github/repo-size/Urbaeexyz/whatsapp-bot">
-<img src="https://img.shields.io/github/issues/Urbaeexyz/whatsapp-bot">
-<img src="https://img.shields.io/github/issues-closed/Urbaeexyz/whatsapp-bot">
-<img src="https://img.shields.io/github/license/Urbaeexyz/whatsapp-bot">
+<a href="https://github.com/Urbaeexyz/whatsapp-bot/issues"> <img src="https://img.shields.io/github/issues/Urbaeexyz/whatsapp-bot"></a>
+<a href="https://github.com/Urbaeexyz/whatsapp-bot/issues?q=is%3Aissue+is%3Aclosed"> <img src="https://img.shields.io/github/issues-closed/Urbaeexyz/whatsapp-bot"></a>
+<a href="https://github.com/Urbaeexyz/whatsapp-bot/blob/main/LICENSE"> <img src="https://img.shields.io/github/license/Urbaeexyz/whatsapp-bot"></a>
 <a href="https://github.com/Urbaeexyz/whatsapp-bot/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Urbaeexyz/whatsapp-bot?label=Watchers&color=blue&style=flat-square"></a>
 <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FUrbaeexyz%2Fwhatsapp-bot&count_bg=%23476FFF&title_bg=%23868080&icon=openbadges.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
 

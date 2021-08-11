@@ -3265,6 +3265,24 @@ case prefix+'faktaunik':
 		aruga.reply(from, err.data, id)
 	})
 	break
+case prefix+'ytplaylist':
+case prefix+'playlistyt':
+	if (args.length == 0) return aruga.reply(from, `mencari sebuah playlist dari youtube gunakan ${prefix}ytplaylist nama playlist\nContoh: ${prefix}ytplaylist good taste music`, id)
+	const playlists = body.slice(12)
+	aruga.reply(from, mess.wait, id)
+	try {
+		const ytplays = await fetchJson(`https://api.zeks.xyz/api/ytplaylist?apikey=${apikeyvinz}&q=${playlists}`)
+		if (ytplays.status == false) return aruga.reply(from, 'Playlist yang anda cari tidak ada', id)
+		const { result } = await ytplays
+		let playsyt = `*「 YOUTUBE  PLAYLISTS  」*\n`
+		for (let i = 0; i < result.length; i++) {
+			playsyt += `\n─────────────────\n\n*•Playlist Name:* ${result[i].title}\n*•Video Count:* ${result[i].video_count}\n*•Playlist ID:* ${result[i].id}\n*•Username:* ${result[i].uploader.username}\n*Playlist Url:* ${result[i].url}\n`
+		}
+		await aruga.sendFileFromUrl(from, result[0].thumbnail, 'thumbnail.jpg', playsyt, id)
+	} catch (err) {
+		console.log(err)
+	}
+	break
 case prefix+'lk21':
 	if (args.length == 0) return aruga.reply(from, `Untuk mencari sebuah film dari website LK21, gunakan ${prefix}lk21 judul film`, id)
 	const lksearch = body.slice(6)
@@ -4120,13 +4138,18 @@ case prefix+'ytsearch':
                aruga.reply(from, textchord, id)
             })
             break
-            case prefix+'ssweb':
-                if (args.length == 0) return aruga.reply(from, `Kirim perintah *${prefix}ssweb [link website]`, id)
-		const webss = body.slice(7)
-		aruga.reply(from, mess.wait, id)
-		await aruga.sendFileFromUrl(from, `http://lolhuman.herokuapp.com/api/ssweb?apikey=${lolhuman}&url=${webss}`, 'img.jpg' , '', id)
-		break
-                break
+        case prefix+'ssweb':
+            if (args.length == 0) return aruga.reply(from, `Kirim perintah *${prefix}ssweb [link website]\nContoh: ${prefix}ssweb2 https://github.com/Urbaeexyz/wa-bot`, id)
+			const webss = body.slice(7)
+			aruga.reply(from, mess.wait, id)
+			await aruga.sendFileFromUrl(from, `http://lolhuman.herokuapp.com/api/ssweb?apikey=${lolhuman}&url=${webss}`, 'img.jpg' , '', id)
+			break
+        case prefix+'ssweb2':
+			if (args.length == 0) return aruga.reply(from, `Kirim perintah ${prefix}ssweb2 [link website]\nContoh: ${prefix}ssweb2 https://github.com/Urbaeexyz/wa-bot`, id)
+			const webss2 = body.slice(8)
+			aruga.reply(from, mess.wait, id)
+			await aruga.sendFileFromUrl(from, `https://docs-jojo.herokuapp.com/api/ssweb?url=${webss2}&device=computer`, 'img.jpg', `nih screenshot-an ${webss2} nya`, id)
+			break
 			case prefix+'fb3':
 			case prefix+'facebook3':
 			if (args.length == 0) return aruga.reply(from, 'Linknya mana?', id)

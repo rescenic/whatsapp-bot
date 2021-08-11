@@ -14,8 +14,7 @@
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FUrbaeexyz%2Fwa-bot&count_bg=%23476FFF&title_bg=%23868080&icon=openbadges.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=false"/></a>
 
 <p align="left">
-<a href="https://github.com/Urbaeexyz/wa-bot">
- <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=Urbaeexyz&repo=wa-bot&theme=dark" />
+ <img src="https://github-readme-stats.vercel.app/api/pin/?username=Urbaeexyz&repo=wa-bot&bg_color=20,e96443,904e89&title_color=fff&text_color=fff&icon_color=fff&hide_border=true&show_icons=true&show_owner=true" />
   </p>
  <p align="center">
   <a href="https://github.com/Urbaeexyz/wa-bot#Requirements">Requirements</a> •

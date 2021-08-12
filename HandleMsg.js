@@ -2273,10 +2273,33 @@ case prefix+'setdesc':
     const ganti = await aruga.setGroupDescription(descnya)
         aruga.setGroupDescription(groupId, ganti)
         break
+case prefix+'dankmemes':
+aruga.reply(from, mess.wait, id)
+axios.get(`http://zekais-api.herokuapp.com/dankmemes`)
+.then(async(res) => {
+	aruga.sendFileFromUrl(from, res.data.result, 'img.jpg', '', id)
+	.catch(err => {
+		console.log(err)
+		aruga.reply(from, 'Rest Api sedang error', id)
+	})
+})
+.catch(err => {
+	console.log(err)
+	aruga.reply(from, err.message, id)
+})
 case prefix+'quotesen':
-const qtos = await axios.get(`https://api.vhtear.com/quotes?apikey=${vhtearkey}`).then(res => {
-    const fto = `Author : *${res.data.result.author}*\n\nQuotes : *${res.data.result.content}*`;
-    aruga.sendText(from, fto, id)
+axios.get(`http://zekais-api.herokuapp.com/quotesen`)
+.then(async (res) => {
+    const fto = `author : *${res.data.author}*\n\nQuotes : *${res.data.quotes_en}*`;
+    aruga.reply(from, fto, id)
+	.catch(err => {
+		console.log(err)
+		aruga.reply(from, 'Rest Api sedang error', id)
+	})
+})
+.catch(err => {
+	console.log(err)
+	aruga.reply(from, err.message, id)
 })
 break
 case prefix+'detail':
@@ -3377,6 +3400,7 @@ aruga.reply(from, mess.wait, id)
 try {
 	const latest = await axios.get(`http://zekais-api.herokuapp.com/drakorlatest`)
 	const belasts = latest.data
+	if (belasts.status == 500) return aruga.reply(from, res.message, id)
 	const { result } = belasts
 	let latestdrak = `*「 DRAKOR UPDATE 」*\n`
 	for (let i = 0; i < result.length; i++) {
@@ -3410,6 +3434,7 @@ aruga.reply(from, mess.wait, id)
 try {
 	const juduldrakor = await axios.get(`http://zekais-api.herokuapp.com/drakor?query=${caridrakor}`)
 	const anjays = juduldrakor.data
+	if (anjays.status == 500) return aruga.reply(from, anjays.message, id)
 	const { download } = anjays
 	let inidrakor = `*•Judul:* ${anjays.title}\n*•Genre:* ${anjays.genre}\n*•Tayang:* ${anjays.tayang}\n*•Director:* ${anjays.director}\n*•Total Episodes:* ${anjays.total_episode}\n*•Sinopsis:* ${anjays.sinopsis}\n`
 	for (let i = 0; i < download.length; i++) {
@@ -3929,11 +3954,11 @@ case prefix+'ytsearch':
             break
     		case prefix+'cerpen':
       			aruga.reply(from, mess.wait, id)
-				axios.get(`https://leyscoders-api.herokuapp.com/api/cerpen?apikey=${leysapi}`)
+				axios.get(`http://zekais-api.herokuapp.com/cerpen`)
       				.then(async (res) => {
-						const ceritanya = `*Judul:* ${res.data.result.title}\n*Pengarang:* ${res.data.result.pengarang}\n*Kategori:* ${res.data.result.kategori}\n\n*Cerpen:* ${res.data.result.story}`
+						const ceritanya = `*Judul:* ${res.data.title}\n*Pengarang:* ${res.data.pengarang}\n*Kategori:* ${res.data.category}\n\n*Cerpen:* ${res.data.post}`
 		    			await aruga.reply(from, ceritanya, id)
-					.catch(() => {
+					.catch(err  => {
 						aruga.reply(from, 'Maaf, sistem sedang error', id)
 					})
       			})
@@ -4590,6 +4615,47 @@ console.log(err)
 			aruga.reply(from, 'Terjadi kesalahan pada sistem, silahkan coba lagi!', id)
 		}
 		break
+		case prefix+'spotifysearch':
+		case prefix+'searchspotify':
+		if (args.length == 0) return aruga.reply(from, `Menampilkan list spotify yang anda cari!\nGunakan ${prefix}spotifysearch judul lagu\nContoh: ${prefix}spotifysearch young`, id)
+		const carispotify = body.slice(15)
+		aruga.reply(from, mess.wait, id)
+		const spotifyapi = await axios.get(`https://zekais-api.herokuapp.com/spotifysr?query=${carispotify}`)
+		const spotifydata = spotifyapi.data
+		const { result } = await spotifydata
+		let spotifytext = `*「 S P O T I F Y 」*\n`
+		for (let i = 0; i < result.length; i++) {
+			spotifytext += `\n─────────────────\n\n*•Title:* ${result[i].title}\n*•Artists:* ${result[i].artists}\n*•Popularity:* ${result[i].popularity}\n*•Release Date:* ${result[i].release_date}\n*•Url:* ${result[i].url}\n`
+		}
+		await aruga.sendFileFromUrl(from, result[0].thumb, 'img.jpg', spotifytext, id)
+		.catch(err => {
+			console.log(err)
+			aruga.reply(from, 'Terjadi kesalahan, silahkan ulangi', id)
+		})
+		.catch(err => {
+			console.log(err)
+			aruga.reply(from, err.message, id)
+		})
+		break
+		case prefix+'spotifydown':
+		if (args.length == 0) return aruga.reply(from, `Mendownload lagu dari spotify menggunakan link spotify\nPenggunaan : ${prefix}spotifydown url track\nContoh : ${prefix}spotifydown https://open.spotify.com/track/3OP8UeYimRl9HCNxMg7Ihl`, id)
+		const linkspot = body.slice(13)
+		aruga.reply(from, mess.wait, id)
+		rugaapi.spotify(linkspot)
+		.then(async(res) => {
+			if (res.status == 404) return aruga.reply(from, res.message, id)
+			aruga.sendFileFromUrl(from, res.result.thumbnail, 'thumb.jpg', `「 *SPOTIFY* 」\n\n*•Title:* ${res.result.title}\n*•Duration:* ${res.result.duration} Sec\n*•Artists:* ${res.result.artists}\n*•Popularity:* ${res.result.popularity}\n\n*_Waitt, lemme send this fuckin' audio_*`, id)
+			aruga.sendFileFromUrl(from, res.result.link, '', '', id)
+			.catch(err => {
+				console.log(err)
+				aruga.reply(from, 'Meng-error', id)
+			})
+		})
+		.catch(err => {
+			console.log(err)
+			aruga.reply(from, err.message, id)
+		})
+		break
 		case prefix+'spotify':
 		if (args.length == 0) return aruga.reply(from, `Untuk mencari lagu dari spotify, gunakan ${prefix}spotify judul lagu`, id)
 		const carispot = body.slice(9)
@@ -4597,7 +4663,7 @@ console.log(err)
 			aruga.reply(from, mess.wait, id)
 			rugaapi.spotify(spos.data.result[0].link)
 			.then(async(res) => {
-				aruga.sendFileFromUrl(from, res.thumbnail, 'thumb.jpg', `「 *SPOTIFY* 」\n\n*•Title:* ${res.title}\n*•Duration:* ${res.duration} Sec\n*•Artists:* ${res.artists}\n*•Popularity:* ${res.popularity}\n\n*_Waitt, lemme send this fuckin' audio_*`, id)
+				aruga.sendFileFromUrl(from, res.result.thumbnail, 'thumb.jpg', `「 *SPOTIFY* 」\n\n*•Title:* ${res.result.title}\n*•Duration:* ${res.result.duration} Sec\n*•Artists:* ${res.result.artists}\n*•Popularity:* ${res.result.popularity}\n\n*_Waitt, lemme send this fuckin' audio_*`, id)
 				await sleep(3000)
 				if (!isPrem) return aruga.reply(from, `Karena kamu bukan user Premium, silahkan download menggunakan link\n\nLink: ${res.link}`, id)
 				aruga.sendFileFromUrl(from, res.link, '', '', id)

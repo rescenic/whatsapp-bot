@@ -2964,7 +2964,7 @@ break
 									for (let i = 0; i < result.length; i++) {
 										doujtext =+ `\n─────────────────\n\n*•Judul:* ${result[i].title}\n*•Rating:* ${result[i].rating}\n*•Status:* ${result[i].status}\n*•Url:* ${result[i].url}\n`
 									}
-									await aruga.sendFileFromUrl(from, result[0].thumb, 'thumb.jpg', doujtext, id)
+									await aruga.sendFileFromUrl(from, doujtext, id)
 									.catch(err => {
 										console.log(err)
 										aruga.reply(from, 'Terjadi kesalahan, coba lagi nanti')
@@ -3697,9 +3697,8 @@ case prefix+'appstore':
 	if (args.length == 0) return aruga.reply(from, `Mencari aplikasi dari AppStore!\nGunakan ${prefix}appstore nama aplikasi\nContoh: ${prefix}appstore instagram`, id)
 	const apps = body.slice(10)
 	aruga.reply(from, mess.wait, id)
-	const appslink = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/appstore?q=${apps}&apikey=${hackapi}`)
-	const appsdata = appslink.data
-	if (appsdata.status === false) return aruga.reply(from, `Pencarian tidak dapat ditemukan`, id)
+	const appslink = await fetch(`https://h4ck3rs404-api.herokuapp.com/api/appstore?q=${apps}&apikey=${hackapi}`)
+	const appsdata = await appslink.json()
 	const { result } = await appsdata
 	let apptext = `*「 App Store 」*\n`
 	for (let i = 0; i < result.length; i++) {

@@ -915,7 +915,8 @@ module.exports = HandleMsg = async (aruga, message) => {
                     fs.writeFileSync('./lib/database/group/leveling.json', JSON.stringify(_leveling))
                     await aruga.reply(from, 'Fitur Leveling berhasil diaktifkan didalam grup ini', id)
                 } else if (ar[0] === 'off') {
-                    _leveling.splice(groupId, 1)
+					var thisgroup = _leveling.indexOf(groupId)
+                    _leveling.splice(thisgroup, 1)
                     fs.writeFileSync('./lib/database/group/leveling.json', JSON.stringify(_leveling))
                     await aruga.reply(from, 'Fitur Leveling berhasil dinonaktifkan didalam grup ini', id)
                 } else {

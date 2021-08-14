@@ -3676,8 +3676,8 @@ if (!isPrem) return aruga.reply(from, mess.prem, id)
 if (args.length == 0) return aruga.reply(from, `Mencari bokep dari website Pornhub, gunakan ${prefix}phsearch judul\nContoh: ${prefix}phsearch step sister`, id)
 const phword = body.slice(10)
 aruga.reply(from, mess.wait, id)
-const phapi = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/phub-search?q=${phword}&apikey=${hackapi}`)
-const phdata = phapi.data
+const phapi = await fetchJson(`https://h4ck3rs404-api.herokuapp.com/api/phub-search?q=${phword}&apikey=${hackapi}`)
+const phdata = phapi
 if (phdata.status == false) return aruga.reply(from, 'Film yang anda cari tidak dapat ditemukan', id)
 const { result } = await phdata
 let phtext = `*「 P O R N H U B 」*\n`

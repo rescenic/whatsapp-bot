@@ -898,8 +898,9 @@ module.exports = HandleMsg = async (aruga, message) => {
                     .setDiscriminator(sender.id.substring(6, 10))
                 rank.build()
                     .then(async (buffer) => {
-                        const imageBase64 = `data:image/png;base64,${buffer.toString('base64')}`
-                        await aruga.sendImage(from, imageBase64, 'rank.png', '', id)
+						canvas.write(buffer, `${sender.id}_level.png`)
+                        await aruga.sendFile(from, `${sender.id}_level.png`, `${sender.id}_level.png`, '', id)
+						fs.unlinkSync(`${sender.id}_level.png`)
                     })
                     .catch(async (err) => {
                         console.error(err)
@@ -3697,14 +3698,14 @@ case prefix+'appstore':
 	if (args.length == 0) return aruga.reply(from, `Mencari aplikasi dari AppStore!\nGunakan ${prefix}appstore nama aplikasi\nContoh: ${prefix}appstore instagram`, id)
 	const apps = body.slice(10)
 	aruga.reply(from, mess.wait, id)
-	const appslink = await fetch(`https://h4ck3rs404-api.herokuapp.com/api/appstore?q=${apps}&apikey=${hackapi}`)
-	const appsdata = await appslink.json()
-	const { result } = await appsdata
+	const appslink = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/appstore?q=${apps}&apikey=${hackapi}`)
+	const appsdata = appslink.data
+	const appstores = appsdata.result
 	let apptext = `*「 App Store 」*\n`
-	for (let i = 0; i < result.length; i++) {
-		apptext += `\n─────────────────\n\n• *Nama Apk:* ${result[i].title}\n• *Deskripsi:* ${result[i].desc}\n• *Url:* ${result[i].url}\n`
+	for (let i = 0; i < appstores.length; i++) {
+		apptext += `\n─────────────────\n\n• *Nama Apk:* ${appstores[i].title}\n• *Deskripsi:* ${appstores[i].desc}\n• *Url:* ${appstores[i].url}\n`
 	}
-	await aruga.sendFileFromUrl(from, result[0].thumb, 'thumb.jpg', apptext, id)
+	await aruga.sendFileFromUrl(from, appstores[0].thumb, 'thumb.jpg', apptext, id)
 	.catch(err => {
 		console.log(err)
 		aruga.reply(from, 'Terjadi kesalahan, coba lagi nanti', id)
@@ -4615,12 +4616,12 @@ console.log(err)
 		aruga.reply(from, mess.wait, id)
 		const spotifyapi = await axios.get(`https://zekais-api.herokuapp.com/spotifysr?query=${carispotify}`)
 		const spotifydata = spotifyapi.data
-		const { result } = await spotifydata
+		const spotres = spotifydata.result
 		let spotifytext = `*「 S P O T I F Y 」*\n`
-		for (let i = 0; i < result.length; i++) {
-			spotifytext += `\n─────────────────\n\n*•Title:* ${result[i].title}\n*•Artists:* ${result[i].artists}\n*•Popularity:* ${result[i].popularity}\n*•Release Date:* ${result[i].release_date}\n*•Url:* ${result[i].url}\n`
+		for (let i = 0; i < spotres.length; i++) {
+			spotifytext += `\n─────────────────\n\n*•Title:* ${spotres[i].title}\n*•Artists:* ${spotres[i].artists}\n*•Popularity:* ${spotres[i].popularity}\n*•Release Date:* ${spotres[i].release_date}\n*•Url:* ${spotres[i].url}\n`
 		}
-		await aruga.sendFileFromUrl(from, result[0].thumb, 'img.jpg', spotifytext, id)
+		await aruga.sendFileFromUrl(from, spotres[0].thumb, 'img.jpg', spotifytext, id)
 		.catch(err => {
 			console.log(err)
 			aruga.reply(from, 'Terjadi kesalahan, silahkan ulangi', id)

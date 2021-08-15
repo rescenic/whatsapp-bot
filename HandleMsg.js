@@ -1194,7 +1194,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 		break
 
 		case prefix+'ttgif':
-		if (!isPrem && !isOwnerB && !isOwnerB) return aruga.reply(from, mess.prem, id)
+		if (!isPrem && !isOwnerB) return aruga.reply(from, mess.prem, id)
 		aruga.reply(from, mess.wait,id)
 		axios.get('https://nekos.life/api/v2/img/boobs').then(res => {
 		aruga.sendStickerfromUrl(from, res.data.url)

@@ -112,6 +112,7 @@ let {
     dapuhyapi,
     paiskey,
     leysapi,
+	zenzapi,
     apikeyvinz, //IF YOU HAVE THIS APIKEY, YOU CAN CUSTOM IT!
     authorstc,
     packstc,
@@ -4261,11 +4262,28 @@ case prefix+'ytsearch':
         case prefix+'lyrics':
         case prefix+'lirik':
             if (args.length == 0) return aruga.reply(from, `Untuk mencari lirik dari sebuah lagu\bketik: ${prefix}lirik [judul_lagu]`, id)
-            rugaapi.lirik(body.slice(7))
+            axios.get(`https://zenzapi.xyz/api/liriklagu?query=${body.slice(7)}&apikey=${zenzapi}`)
             .then(async (res) => {
-                await aruga.reply(from, `Lirik Lagu: ${body.slice(7)}\n\n${res.lirik}`, id)
+				if (res.data.status == false) return aruga.reply(from, 'Lirik yang kamu cari tidak ada', id)
+                await aruga.sendFileFromUrl(from, res.data.result.thumb, 'thumb.jpg', `Judul : ${res.data.result.judul}\nPenyanyi : ${res.data.result.penyanyi}\nLirik : ${res.data.result.lirik}`, id)
             })
+			.catch(err => {
+				console.log(err)
+				aruga.reply(from, err.message, id)
+			})
             break
+		case prefix+'creepypasta':
+		case prefix+'creepyfact':
+		axios.get(`https://zenzapi.xyz/api/creepyfact?apikey=${zenzapi}`)
+		.then(async(res) => {
+			if (res.data.status == false) return aruga.reply(from, 'Lagi error', id)
+			aruga.reply(from, res.data.result.message, id)
+		})
+		.catch(err => {
+			console.log(err)
+			aruga.reply(from, err.message, id)
+		})
+		break
         case prefix+'chord':
             if (args.length == 0) return aruga.reply(from, `Untuk mencari lirik dan chord dari sebuah lagu\bketik: ${prefix}chord [judul_lagu]`, id)
             const chordq = body.slice(7)
@@ -4649,6 +4667,48 @@ console.log(err)
 		await aruga.reply(from, mangatext2, id)
 		.catch(() => {
 			aruga.reply(from, 'Manga yang kamu cari tidak ada', id)
+		})
+		.catch(err => {
+			console.log(err)
+			aruga.reply(from, err.message, id)
+		})
+		break
+		case prefix+'javhd':
+		if (!isPrem) return aruga.reply(from, mess.prem, id)
+		if (args.length == 0) return aruga.reply(from, `Fitur untuk mencari yaa you know lah mwehehe\nUsage : ${prefix}javhd title\nContoh: ${prefix}javhd big tits`, id)
+		const carijav = body.slice(7)
+		aruga.reply(from, mess.wait, id)
+		const javapi = await axios.get(`https://dapuhy-api.herokuapp.com/api/search/javhdd?query=${carijav}&apikey=${dapuhyapi}`)
+		const javdata = javapi.data
+		const javres = javdata.result
+		let javtext = `*「 J A V  H D 」*\n`
+		for (let i = 0; i < javres.length; i++) {
+			javtext += `\n─────────────────\n\n*•Judul:* ${javres[i].title}\n*•Kualitas:* ${javres[i].quality}\n*•Url:* ${javres[i].url}\n`
+		}
+		await aruga.sendFileFromUrl(from, javres[0].thumb, 'img.jpg', javtext, id)
+		.catch(() => {
+			aruga.reply(from, `Query yang anda cari tidak dapat ditemukan`, id)
+		})
+		.catch(err => {
+			console.log(err)
+			aruga.reply(from, err.message, id)
+		})
+		break
+		case prefix'javporn':
+		if (!isPrem) return aruga.reply(from, mess.prem, id)
+		if (args.length == 0) return aruga.reply(from, `Fitur untuk mencari yaa you know lah mwehehe\nUsage : ${prefix}javporn title\nContoh: ${prefix}javporn mom`, id)
+		const cariporn = body.slice(9)
+		aruga.reply(from, mess.wait, id)
+		const javpornapi = await axios.get(`https://dapuhy-api.herokuapp.com/api/search/javhdporn?query=${cariporn}&apikey=${dapuhyapi}`)
+		const javporndata = javpornapi.data
+		const pornres = javporndata.result
+		let porntext = `*「 J A V  P O R N 」*\n`
+		for (let i = 0; i < pornres.length; i++) {
+			porntext += `\n─────────────────\n\n*•Judul:* ${pornres[i].title}\n*•Views:* ${pornres[i].viewers}\n*•Durasi:* ${pornres[i].duration}\n*•Kualitas:* ${pornres[i].quality}\n*•Url:* ${pornres[i].url}\n`
+		}
+		await aruga.sendFileFromUrl(from, pornres[0].thumb, 'thumb.jpg', porntext, id)
+		.catch(() => {
+			aruga.reply(from, 'Query yang kamu cari tidak ada', id)
 		})
 		.catch(err => {
 			console.log(err)

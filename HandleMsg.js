@@ -3846,6 +3846,7 @@ case prefix+'ytsearch':
     await aruga.reply(from, `media sedang dikirim , tunggu sampe10-20 detik`, id)
 	await aruga.sendFileFromUrlFrom(from, `https://pencarikode.xyz/api/chika?apikey=${paiskey}`, 'chika.mp4', '', id)
     break
+	case prefix+'tomp3':
 	if (isMedia && isQuotedVideo || isQuotedFile) {
                     await aruga.reply(from, mess.wait, id)
                     const encryptMedia = isQuotedVideo || isQuotedFile? quotedMsg : message

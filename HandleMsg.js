@@ -4355,7 +4355,7 @@ case prefix+'ytsearch':
                     axios.get(`http://lolhuman.herokuapp.com/api/instagram2?apikey=${lolhuman}&url=${body.slice(5)}`)
 					.then(async(res) => {
 						aruga.sendFileFromUrl(from, res.data.result.media[0], 'ig.mp4', '', id)
-			.			.catch(err => {
+						.catch(err => {
 						console.log(err)
 						aruga.reply(from, 'Error njing', id)
 						})
@@ -4606,16 +4606,21 @@ console.log(err)
 		const jamss = args[1]
 		if (jamss > 11) return aruga.reply(from, 'Maksimal 10', id)
 		aruga.reply(from, mess.wait, id)
+		try {
 			const beasin = await axios.get(`https://zekais-api.herokuapp.com/igdl?url=${jams}`)
 			const beasin2 = beasin.data
 			if (beasin2.status == 500) return aruga.reply(from, `Link tidak valid`, id)
 			for (let i = 0; i < jamss; i++) {
 				await aruga.sendFileFromUrl(from, beasin2.result[i].url, '', `*from: ${beasin2.owner_user}*\n*uploaded: ${beasin2.date}*\n*caption:* ${beasin2.capt}*`, id)
+				.catch(err => {
+					console.log(err)
+					aruga.reply(from, err.message, id)
+				})
 			}
-			.catch(err => {
-				console.log(err)
-				aruga.reply(from, err.message, id)
-			})
+		} catch (err) {
+			console.log(err)
+			aruga.reply(from, err.message, id)
+		}
 		break
 		case prefix+'postig':
 		if (args.length == 0) return aruga.reply(from, `Fitur untuk mencari post dari instagram seseorang\nketik ${prefix}postig username|jumlah\ncontoh: ${prefix}postig yourrkayesss|3`, id)
@@ -4700,7 +4705,7 @@ console.log(err)
 			aruga.reply(from, err.message, id)
 		})
 		break
-		case prefix'javporn':
+		case prefix+'javporn':
 		if (!isPrem) return aruga.reply(from, mess.prem, id)
 		if (args.length == 0) return aruga.reply(from, `Fitur untuk mencari yaa you know lah mwehehe\nUsage : ${prefix}javporn title\nContoh: ${prefix}javporn mom`, id)
 		const cariporn = body.slice(9)

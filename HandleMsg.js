@@ -4381,21 +4381,21 @@ console.log(err)
                                 aruga.reply(from, 'Ada yang Error!', id)
                             })
                 break
-		case prefix+'tiktok2':
+		case prefix+'tiktok':
              if (args.length == 0) return aruga.reply(from, `Kirim perintah *${prefix}tiktok [linkTiktok]*`, id)
-             const bodynya = body.slice(9)
+             const bodynya = body.slice(8)
 			 aruga.reply(from, mess.wait, id)
-			 axios.get(`https://videfikri.com/api/tiktok/?url=${bodynya}`)
+			 axios.get(`https://docs-jojo.herokuapp.com/api/tiktok_nowm?url=${bodynya}`)
 			 .then(async(res) => {
-				 await aruga.sendFileFromUrl(from, res.data.result.thumb, 'img.jpg', `「 *TIKTOK NOWM* 」\n\n*from:* ${res.data.result.username}\n*uploaded:* ${res.data.result.uploaded_on}\n*caption:* ${res.data.result.caption}\n\n${mess.wait}`, id)
-				 aruga.sendFileFromUrl(from, res.data.result.link, '', '', id)
-				 .catch(() => {
-					 aruga.reply(from, 'Error', id)
+				 await aruga.sendFileFromUrl(from, res.data.download, '', `*from:* ${res.data.from}\n*caption:* ${res.data.caption}`, id)
+				 .catch(err => {
+					 console.log(err)
+					 aruga.reply(from, 'Rest Api sedang Error!', id)
 				 })
 			 })
 			 .catch((err) => {
 				 console.log(err)
-				 aruga.reply(from, 'error', id)
+				 aruga.reply(from, err.message, id)
 			 })
 			 break
 			case prefix+'tiktoknowm':
@@ -4414,9 +4414,9 @@ console.log(err)
 				console.log(err)
 			})
 			break
-            case prefix+'tiktok':
+            case prefix+'tiktok2':
                 if (args.length == 0) return aruga.reply(from, `Kirim perintah *${prefix}tiktok [linkTiktok]*`, id)
-				const linktik = body.slice(8)
+				const linktik = body.slice(9)
 				aruga.reply(from, mess.wait, id)
 				axios.get(`http://lolhuman.herokuapp.com/api/tiktok?apikey=${lolhuman}&url=${linktik}`)
 				.then(async(res) => {
@@ -4586,7 +4586,7 @@ console.log(err)
 			const beasin2 = beasin.data
 			if (beasin2.status == 500) return aruga.reply(from, `Link tidak valid`, id)
 			for (let i = 0; i < jamss; i++) {
-				await aruga.sendFileFromUrl(from, beasin2.result[i].url, 'video.mp4', `*from: ${beasin2.owner_user}*\n*uploaded: ${beasin2.date}*\n*caption:* ${beasin2.capt}*`, id)
+				await aruga.sendFileFromUrl(from, beasin2.result[i].url, '', `*from: ${beasin2.owner_user}*\n*uploaded: ${beasin2.date}*\n*caption:* ${beasin2.capt}*`, id)
 			}
 			.catch(err => {
 				console.log(err)

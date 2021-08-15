@@ -4272,6 +4272,12 @@ case prefix+'ytsearch':
 				aruga.reply(from, err.message, id)
 			})
             break
+		case prefix+'rcosplay':
+		case prefix+'cosplayer':
+		case prefix+'cosplayers':
+		aruga.reply(from, mess.wait, id)
+		await aruga.sendFileFromUrl(from, `https://zenzapi.xyz/api/random/cosplay?apikey=${zenzapi}`, 'cosplay.jpg', '', id)
+		break
 		case prefix+'creepypasta':
 		case prefix+'creepyfact':
 		axios.get(`https://zenzapi.xyz/api/creepyfact?apikey=${zenzapi}`)

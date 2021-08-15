@@ -4575,7 +4575,7 @@ console.log(err)
 				  aruga.reply(from, 'Mungkin stiker yang anda cari tidak ada', id)
 				  console.log(err)
 			  }
-			  break		
+			  break
 		case prefix+'postigurl':
 		if (args.length == 0) return aruga.reply(from, `Silahkan kirim perintah ${prefix}postigurl linkurl jumlah\nfitur ini untuk mendownload jumlah yang ingin didownload\nContoh: ${prefix}postigurl https://www.instagram.com/p/CP3QRfTpUGN/ 2`, id)
 		const jams = args[0]
@@ -4610,6 +4610,50 @@ console.log(err)
 			console.log(err)
 			aruga.reply(from, 'Terjadi kesalahan pada sistem, silahkan coba lagi!', id)
 		}
+		break
+		case prefix+'carimanga':
+		case prefix+'mangasearch':
+		if (args.length == 0) return aruga.reply(from, `Menampilkan list mangatoon dari query\nContoh: ${prefix}mangasearch love`, id)
+		const carimanga = args[0]
+		aruga.reply(from, mess.wait, id)
+		const datamanga = await axios.get(`http://zekais-api.herokuapp.com/mangatoonsr?query=${carimanga}`)
+		const resmanga = datamanga.data
+		const manres = resmanga.result
+		let mangatext = `*「 M A N G A T O O N 」*\n`
+		for (let i = 0; i < manres.length; i++) {
+			mangatext += `\n─────────────────\n\n*•Title:* ${manres[i].title}\n*•Genre:* ${manres[i].genre}\n*•Url:* ${manres[i].url}\n`
+		}
+		await aruga.sendFileFromUrl(from, manres[0].thumb, 'thumb.jpg', mangatext, id)
+		.catch(() => {
+			aruga.reply(from, 'Manga yang kamu cari tidak ada', id)
+		})
+		.catch(err => {
+			console.log(err)
+			aruga.reply(from, err.message, id)
+		})
+		break
+		case prefix+'readmanga':
+		case prefix+'bacamanga':
+		if (args.length == 0) return aruga.reply(from, 'linknya mana?', id)
+		const linkmanga = args[0]
+		aruga.reply(from, mess.wait, id)
+		const downmanga = await axios.get(`http://zekais-api.herokuapp.com/getmangatoon?url=${linkmanga}`)
+		const downdata = downmanga.data
+		const mangaresult = downdata.result
+		const replys = `*•Judul:* ${downdata.title}\n*•Genre:* ${downdata.genre}\n*•Author:* ${downdata.author}\n*•Rating:* ${downdata.score}\n*•Views:* ${downdata.view_count}\n*•Likes:* ${downdata.like_count}\n*•Desc:* ${downdata.desc}`
+		await aruga.sendFileFromUrl(from, downmanga.thumb, 'thumb.jpg', replys, id)
+		let mangatext2 = `*「 M A N G A T O O N 」*\n`
+		for (let i = 0; i < mangaresult.length; i++) {
+			mangatext2 += `\n─────────────────\n\n*•Episode 1:* ${mangaresult[i].episode}\n*•Url:* ${mangaresult[i].url}\n`
+		}
+		await aruga.reply(from, mangatext2, id)
+		.catch(() => {
+			aruga.reply(from, 'Manga yang kamu cari tidak ada', id)
+		})
+		.catch(err => {
+			console.log(err)
+			aruga.reply(from, err.message, id)
+		})
 		break
 		case prefix+'spotifysearch':
 		case prefix+'searchspotify':

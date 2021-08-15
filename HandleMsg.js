@@ -5461,12 +5461,24 @@ console.log(err)
 		aruga.reply(from, 'lagi error', id)
 	})
 	break
+	case prefix+'tobijak':
+	if (args.length == 0) return aruga.reply(from, `Membuat kata bijak dari query\nContoh: ${prefix}tobijak sayang`, id)
+	axios.get(`https://zenzapi.xyz/api/buatkata?query=${body.slice(9)}&apikey=${zenzapi}`)
+	.then(async (res) => {
+		if (res.data.status == false) return aruga.reply(from, 'Kata yang kamu masukkan tidak dapat ditemukan', id)
+		aruga.reply(from, `${res.data.result.message}\n- ${res.data.result.by}`, id)
+	})
+	.catch(err => {
+		console.log(err)
+		aruga.reply(from, err.message, id)
+	})
+	break
 	case prefix+'simi':
 		if (args.length == 0) return aruga.reply(from, `Kirim perintah ${prefix}bot [teks]\nContoh : ${prefix}bot halo`, id)
 		const arbu = body.slice(6)
-		axios.get(`https://fzn-gaz.herokuapp.com/api/simi?text=${arbu}`).then(res => {
+		axios.get(`https://zenzapi.xyz/api/simih?text=${arbu}&apikey=${zenzapi}`).then(res => {
 		console.log(color(`${arbu}`, 'green'))
-		const segey = res.data.result
+		const segey = res.data.result.message
 		aruga.reply(from, segey, id)
 		console.log(color(`${res.data}`, 'green'))
 	})
@@ -5477,11 +5489,11 @@ console.log(err)
     case prefix+'simi2':
         if (args.length == 0) return aruga.reply(from, `Kirim perintah ${prefix}simi2 halo anjing`, id)
         const anjg = body.slice(7)
-        axios.get(`https://tobz-api.herokuapp.com/api/simsimi?text=${anjg}&apikey=${tobzapi}`).then(res => {
-            console.log(anjg)
-            const babuy = `${res.data.result}`
+        axios.get(`https://api.zeks.xyz/api/simi?apikey=${apikeyvinz}&text=${anjg}`).then(res => {
+            console.log(color(`${anjg}`, 'green'))
+            const babuy = `${res.data}`
             aruga.reply(from, babuy, id)
-            console.log(babuy)
+            console.log(color(`${babuy}`, 'green'))
         })
         break
 	case prefix+'wame':

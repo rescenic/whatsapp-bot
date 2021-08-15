@@ -873,7 +873,7 @@ module.exports = HandleMsg = async (aruga, message) => {
             break
             // Level [BETA] by Slavyan
             case prefix+'level':
-                if (!isLevelingOn) return await aruga.reply(from, 'Fitur Leveling belum diaktifkan!', id)
+                if (!isLevelingOn) return await aruga.reply(from, 'Fitur leveling belum aktif di grup ini!', id)
                 if (!isGroupMsg) return await aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam Grup!', id)
                 const userLevel = level.getLevelingLevel(sender.id, _level)
                 const userXp = level.getLevelingXp(sender.id, _level)
@@ -898,9 +898,8 @@ module.exports = HandleMsg = async (aruga, message) => {
                     .setDiscriminator(sender.id.substring(6, 10))
                 rank.build()
                     .then(async (buffer) => {
-						canvas.write(buffer, `${sender.id}_level.png`)
-                        await aruga.sendFile(from, `${sender.id}_level.png`, `${sender.id}_level.png`, '', id)
-						fs.unlinkSync(`${sender.id}_level.png`)
+                        const imageBase644 = `data:image/png;base64,${buffer.toString('base64')}`
+                        await aruga.sendImage(from, imageBase644, 'rank.png', '', id)
                     })
                     .catch(async (err) => {
                         console.error(err)

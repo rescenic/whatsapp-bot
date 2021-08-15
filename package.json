@@ -4,22 +4,23 @@
   "description": "whatsapp-bot with NodeJS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Urbaeexyz/wa-bot.git"
+    "url": "git+https://github.com/Urbaeexyz/whatsapp-bot.git"
   },
   "keywords": [
-    "Whatsapp-Bot"
+    "Whatsapp-Bot",
+    "whatsapp-bot",
+    "wa-bot"
   ],
-  "author": "Thoriq",
+  "author": "Thoriq Azzikra",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Urbaeexyz/wa-bot/issues"
+    "url": "https://github.com/Urbaeexyz/whatsapp-bot/issues"
   },
-  "homepage": "https://github.com/Urbaeexyz/wa-bot#readme",
+  "homepage": "https://github.com/Urbaeexyz/whatsapp-bot",
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.1",
     "@open-wa/wa-automate": "^4.12.3",

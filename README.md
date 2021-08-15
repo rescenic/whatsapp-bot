@@ -43,6 +43,8 @@
 # Donate
 - [Saweria](https://saweria.co/thoriqazzikra)
 - [Paypal](https://www.paypal.com/paypalme/thoriqazzikra)
+- [Trakteer](https://trakteer.id/thoriqazzikra)
+- [Nyawer](https://nyawer.co/thoriqazzikra)
 - OVO : 0895334951166
 
  ## Things I Code With

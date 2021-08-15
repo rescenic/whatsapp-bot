@@ -2935,24 +2935,25 @@ break
 			})
 		     })
 			break
-                    case prefix+'ig':
-                        case prefix+'instagram':
-                           if (args.length == 0) return aruga.reply(from, `Kirim perintah *${prefix}ig [linkIg]*`, id)
-                            const igUrl = body.slice(4)
-			    axios.get(`https://videfikri.com/api/igdl/?url=${igUrl}`)
+			  case prefix+'ig':
+              case prefix+'instagram':
+                if (args.length == 0) return aruga.reply(from, `Kirim perintah *${prefix}ig [linkIg]*`, id)
+                const igUrl = body.slice(4)
+			    axios.get(`https://zekais-api.herokuapp.com/igdl?url=${igUrl}`)
 			    .then(async(res) => {
-				if (res.data.result.type_post == 'image') {
-					aruga.sendFileFromUrl(from, res.data.result.img_url, 'ig.jpg', '', id)
-				} else if (res.data.result.type_post == 'video') {
-				await aruga.sendFileFromUrl(from, res.data.result.video, 'ig.mp4', `*from: ${res.data.result.username}*\n*fullname: ${res.data.result.fullname}*\n*caption: ${res.data.result.caption}*`, id)
+				if (res.data.result[0].type == 'image') {
+					aruga.sendFileFromUrl(from, res.data.result[0].url, 'ig.jpg', '', id)
+				} else if (res.data.result[0].type == 'video') {
+				await aruga.sendFileFromUrl(from, res.data.resul[0].url, 'ig.mp4', `*from: ${res.data.result.username}*\n*fullname: ${res.data.result.fullname}*\n*caption: ${res.data.result.caption}*`, id)
 				} else {
 					aruga.reply(from, 'Terjadi kesalahan', id)
 				}
 				})
 				.catch(err => {
-					aruga.reply(from, `Error\nSilahkan gunakan ${prefix}ig2`, id)
+					console.log(err)
+					aruga.reply(from, `Error\nSilahkan gunakan ${prefix}ig2 atau ${prefix}postigurl`, id)
 				})
-                                break
+                break
 							case prefix+'doujin':
 									if (!isPrem) return aruga.reply(from, mess.prem, id)
 									if (args.length == 0) return aruga.reply(from, `Mencari doujin gunakan ${prefix}doujin judul\nContoh : ${prefix}doujin my sister`, id)
@@ -4328,13 +4329,14 @@ case prefix+'ytsearch':
                     if (args.length == 0) return aruga.reply(from, `Kirim perintah ${prefix}ig2 linkig`, id)
                     aruga.reply(from, '_Scrapping Metadataa..._', id)
                     axios.get(`http://lolhuman.herokuapp.com/api/instagram2?apikey=${lolhuman}&url=${body.slice(5)}`)
-			.then(async(res) => {
-			aruga.sendFileFromUrl(from, res.data.result.media[0], 'ig.mp4', '', id)
-			.catch(() => {
-			aruga.reply(from, 'Error njing', id)
-		})
-	})
-	break
+					.then(async(res) => {
+						aruga.sendFileFromUrl(from, res.data.result.media[0], 'ig.mp4', '', id)
+			.			.catch(err => {
+						console.log(err)
+						aruga.reply(from, 'Error njing', id)
+						})
+						})
+						break
             case prefix+'twitter':
                 if (args.length == 0) return aruga.reply(from, `Kirim Perintah ${prefix}twitter [linktwitter]`, id)
                 aruga.reply(from, mess.wait, id)
@@ -4575,21 +4577,21 @@ console.log(err)
 			  }
 			  break		
 		case prefix+'postigurl':
-		if (args.length == 0) return aruga.reply(from, `Silahkan kirim perintah ${prefix}postigurl linkurl jumlah\nfitur ini untuk mendownload jumlah yang ingin didownload\nContoh: ${prefix}postigurl https://instagram.com/p/gagakg 2`, id)
+		if (args.length == 0) return aruga.reply(from, `Silahkan kirim perintah ${prefix}postigurl linkurl jumlah\nfitur ini untuk mendownload jumlah yang ingin didownload\nContoh: ${prefix}postigurl https://www.instagram.com/p/CP3QRfTpUGN/ 2`, id)
 		const jams = args[0]
 		const jamss = args[1]
 		if (jamss > 11) return aruga.reply(from, 'Maksimal 10', id)
 		aruga.reply(from, mess.wait, id)
-		try {
-			const beasin = await axios.get(`https://docs-jojo.herokuapp.com/api/instagram-post?url=${jams}`)
+			const beasin = await axios.get(`https://zekais-api.herokuapp.com/igdl?url=${jams}`)
 			const beasin2 = beasin.data
+			if (beasin2.status == 500) return aruga.reply(from, `Link tidak valid`, id)
 			for (let i = 0; i < jamss; i++) {
-				await aruga.sendFileFromUrl(from, beasin2.media_result[i].url, '', `*from: ${beasin2.owner.username}*\n*full name: ${beasin2.owner.full_name}*\n*verified: ${beasin2.owner.verified}*\n*caption: ${beasin2.caption}*`, id)
+				await aruga.sendFileFromUrl(from, beasin2.result[i].url, 'video.mp4', `*from: ${beasin2.owner_user}*\n*uploaded: ${beasin2.date}*\n*caption:* ${beasin2.capt}*`, id)
 			}
-		} catch (err) {
-			console.log(err)
-			aruga.reply(from, 'Terjadi kesalahan pada sistem, silahkan ulangi lagi nanti', id)
-		}
+			.catch(err => {
+				console.log(err)
+				aruga.reply(from, err.message, id)
+			})
 		break
 		case prefix+'postig':
 		if (args.length == 0) return aruga.reply(from, `Fitur untuk mencari post dari instagram seseorang\nketik ${prefix}postig username|jumlah\ncontoh: ${prefix}postig yourrkayesss|3`, id)

@@ -2289,6 +2289,7 @@ axios.get(`http://zekais-api.herokuapp.com/dankmemes`)
 	console.log(err)
 	aruga.reply(from, err.message, id)
 })
+break
 case prefix+'quotesen':
 axios.get(`http://zekais-api.herokuapp.com/quotesen`)
 .then(async (res) => {
@@ -3379,6 +3380,7 @@ try {
 	console.log(err)
 	aruga.reply(from, 'Terjadi kesalahan, silahkan coba lagi', id)
 }
+break
 case prefix+'lk21':
 	if (args.length == 0) return aruga.reply(from, `Untuk mencari sebuah film dari website LK21, gunakan ${prefix}lk21 judul film`, id)
 	const lksearch = body.slice(6)
@@ -3673,16 +3675,15 @@ aruga.sendText(from, '_10 detik lagi_')
 await sleep(10000)
 aruga.reply(from, jawabananime, id)
 break
-/*
 case prefix+'phsearch':
 if (!isPrem) return aruga.reply(from, mess.prem, id)
 if (args.length == 0) return aruga.reply(from, `Mencari bokep dari website Pornhub, gunakan ${prefix}phsearch judul\nContoh: ${prefix}phsearch step sister`, id)
 const phword = body.slice(10)
 aruga.reply(from, mess.wait, id)
-const phapi = await fetchJson(`https://h4ck3rs404-api.herokuapp.com/api/phub-search?q=${phword}&apikey=${hackapi}`)
-const phdata = phapi
-if (phapi.status == false) return aruga.reply(from, 'Film yang anda cari tidak dapat ditemukan', id)
-const pornhubb = phapi.result
+const phapi = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/phub-search?q=${phword}&apikey=${hackapi}`)
+const phdata = phapi.data
+if (phdata.status == false) return aruga.reply(from, 'Film yang anda cari tidak dapat ditemukan', id)
+const pornhubb = phdata.result
 let phtext = `*「 P O R N H U B 」*\n`
 for (let i = 0; i < pornhubb.length; i++) {
 	phtext += `\n─────────────────\n\n•*Title:* ${result[i].title}\n•*Views:* ${result[i].views}\n•*Channel:* ${result[i].author}\n•*Uploaded:* ${result[i].publish}\n•*Url:* ${result[i].url}\n`
@@ -3693,7 +3694,6 @@ await aruga.sendFileFromUrl(from, result[0].thumb, 'thumbnail.jpg', phtext, id)
 	aruga.reply(from, 'Terjadi kesalahan, coba lagi nanti', id)
 })
 break
-*/
 case prefix+'appstore':
 	if (args.length == 0) return aruga.reply(from, `Mencari aplikasi dari AppStore!\nGunakan ${prefix}appstore nama aplikasi\nContoh: ${prefix}appstore instagram`, id)
 	const apps = body.slice(10)

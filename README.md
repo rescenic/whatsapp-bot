@@ -70,6 +70,29 @@ Setelah diinstal Ketik ini di Terminal
 ```ffmpeg```
 Jika muncul berarti sudah terinstall dan sudah di path
 
+## FFMPEG WINDOWS INSTALL/PATH
+
+- First go to this [link](https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2021-08-16-12-43/ffmpeg-n4.4-80-gbf87bdd3f6-win64-gpl-4.4.zip)
+- And when it's complete downloading, extract file
+- And rename it into ffmpeg
+<img src="https://user-images.githubusercontent.com/75126993/129567185-de994a8c-9fdf-4fd0-ad61-a338e51b0f0c.png">
+<img src="https://user-images.githubusercontent.com/75126993/129567021-688966f1-3149-4351-8947-dde5d956e6d2.png">
+- Then move ffmpeg file to Local Disk (C:/)
+<img src="https://user-images.githubusercontent.com/75126993/129568099-4730b732-9df4-4a82-b011-10ff028d29af.png">
+- And then go to Environment Variables
+<img src="https://user-images.githubusercontent.com/75126993/129567633-dda1e78b-c883-4d67-af17-d4c9f2ee7844.png">
+- Click "New"
+<img src="https://user-images.githubusercontent.com/75126993/129568737-7c02d1fe-6cd4-4d7a-8639-08a9950ad8b0.png">
+- type variable name into "path" and variable value into "C:/ffmpeg/bin"
+<img src="https://user-images.githubusercontent.com/75126993/129569021-f7af308c-d071-47c8-b82b-d8ec0d575464.png">
+
+- After that, open command prompt and type "ffmpeg"
+<img src="https://user-images.githubusercontent.com/75126993/129569343-0f104fd3-6340-4195-b22e-04fe340e16de.png">
+
+- If it shows like that image, congratulations your ffmpeg has been path
+
+
+
 ## Getting Started
 
 This project require NodeJS v12.

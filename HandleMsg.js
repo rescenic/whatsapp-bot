@@ -4442,10 +4442,9 @@ console.log(err)
                 if (args.length == 0) return aruga.reply(from, `Kirim perintah *${prefix}tiktok [linkTiktok]*`, id)
 				const linktik = body.slice(9)
 				aruga.reply(from, mess.wait, id)
-				axios.get(`http://lolhuman.herokuapp.com/api/tiktok?apikey=${lolhuman}&url=${linktik}`)
+				axios.get(`https://zenzapi.xyz/api/downloader/tiktok?url=${linktik}&apikey=${zenzapi}`)
 				.then(async(res) => {
-					await aruga.sendFileFromUrl(from, res.data.result.thumbnail, 'nowm.mp4', `*from:* ${res.data.result.author.username}\n*caption:* ${res.data.result.title}\n*play videos:* ${res.data.result.statistic.playCount}\n*likes:* ${res.data.result.statistic.diggCount}\n*comments:* ${res.data.result.statistic.commentCount}\n*shares:* ${res.data.result.statistic.shareCount}\n\n*_Waitt, lagi ngirim videonya_*`, id)
-					await aruga.sendFileFromUrl(from, res.data.result.link, '', '', id)
+					await aruga.sendFileFromUrl(from, res.data.result.nowatermark, '', '', id)
 					.catch(() => {
 						aruga.reply(from, `Error nich\nTolong report error dengan menggunakan ${prefix}reportbug detail bug/error`, id)
 					})
@@ -4789,7 +4788,7 @@ console.log(err)
 		break
 		case prefix+'exec':
                     if (!isOwner) return aruga.reply(from, `Perintah ini hanya bisa di gunakan oleh Owner Bot!`, id)
-                    if (!q) return await aruga.reply(from, `Format salah pastikan sudah benar di ${prefix}menu`, id)
+                    if (!q) return await aruga.reply(from, `Masukkan kode command prompt`, id)
                     //const execute = require("child_process")
                     var spawn = require('child_process').exec;
                     function os_func() {
@@ -4966,6 +4965,9 @@ console.log(err)
                 try {
                     ttsGB.save('./media/tts.mp3', dataText, function () {
                     aruga.sendPtt(from, './media/tts.mp3', id)
+					setTimeout(() => {
+						fs.unlinkSync('./media/tts.mp3')
+					}, 30000)
                     })
                 } catch (err) {
                     aruga.reply(from, err, id)

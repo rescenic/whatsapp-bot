@@ -3714,6 +3714,23 @@ await aruga.sendFileFromUrl(from, result[0].thumb, 'thumbnail.jpg', phtext, id)
 	aruga.reply(from, 'Terjadi kesalahan, coba lagi nanti', id)
 })
 break
+case prefix+'searchuser':
+	if (args.length == 0) return aruga.reply(from, `Mencari user instagram gunakan ${prefix}searchuser query\nContoh: ${prefix}searchuser zennny`, id)
+	const userinsta = body.slice(12)
+	aruga.reply(from, mess.wait, id)
+	const userapi = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/iguser?q=${userinsta}&apikey=${hackapi}`)
+	const userdata = userapi.data
+	const resultdata = userdata.result
+	let instatext = `*「 INSTAGRAM USER 」*\n`
+	for (let i = 0; i < resultdata.length; i++) {
+		instatext = `\n─────────────────\n\n• *Username:* ${resultdata[i].username}\n• *Fullname:* ${resultdata[i].full_name}\n• *Verified:* ${resultdata[i].verified_user}\n• *Private:* ${resultdata[i].private_user}\n`
+	}
+	await aruga.sendFileFromUrl(from, resultdata[0].profile_pic, 'profile.jpg', instatext, id)
+	.catch(err => {
+		console.log(err)
+		aruga.reply(from, err.message, id)
+	})
+	break
 case prefix+'appstore':
 	if (args.length == 0) return aruga.reply(from, `Mencari aplikasi dari AppStore!\nGunakan ${prefix}appstore nama aplikasi\nContoh: ${prefix}appstore instagram`, id)
 	const apps = body.slice(10)
@@ -4243,38 +4260,40 @@ case prefix+'ytsearch':
 		})
 	    break
             case prefix+'stalktwit':
+			case prefix+'stalktwitter':
                 if (args.length == 0) return aruga.reply(from, `Untuk men-stalk akun Burung Biru/Twitter seseorang\nketik ${prefix}stalktwit [username]\ncontoh : ${prefix}stalktwit anakbabi123`, id)
                 const usernya = body.slice(11)
-		await aruga.reply(from, mess.wait, id)
-		axios.get(`https://api.vhtear.com/twittprofile?username=${usernya}&apikey=${vhtearkey}`)
-		.then(async(res) => {
-		const cptntw = `*Username:* ${res.data.result.username}\n*Full Name:* ${res.data.result.name}\n*Location:* ${res.data.result.location}\n*Followers:* ${res.data.result.followers_count}\n*Following:* ${res.data.result.folowed_count}\n*Favorites:* ${res.data.result.favourites_count}\n*Post:* ${res.data.result.media_count}\n\n*Desc:* ${res.data.result.description}`
-		await aruga.sendFileFromUrl(from, res.data.result.profile_image, 'img.jpg', cptntw, id)
-		.catch(() => {
-		aruga.reply(from, 'Error', id)
-		})
-		})
-		.catch((err) => {
-			console.log(err)
-		})
-		break
+				await aruga.reply(from, mess.wait, id)
+				axios.get(`https://api.vhtear.com/twittprofile?username=${usernya}&apikey=${vhtearkey}`)
+				.then(async(res) => {
+					const cptntw = `*Username:* ${res.data.result.username}\n*Full Name:* ${res.data.result.name}\n*Location:* ${res.data.result.location}\n*Followers:* ${res.data.result.followers_count}\n*Following:* ${res.data.result.folowed_count}\n*Favorites:* ${res.data.result.favourites_count}\n*Post:* ${res.data.result.media_count}\n\n*Desc:* ${res.data.result.description}`
+					await aruga.sendFileFromUrl(from, res.data.result.profile_image, 'img.jpg', cptntw, id)
+					.catch(() => {
+						aruga.reply(from, 'Error', id)
+					})
+				})
+				.catch((err) => {
+					console.log(err)
+				})
+				break
             case prefix+'stalkig':
 			case prefix+'stalking':
                 if (args.length == 0) return aruga.reply(from, `Untuk men-stalk akun instagram seseorang\nketik ${prefix}stalkig [username]\ncontoh: ${prefix}stalkig ini.arga`, id)
                 aruga.reply(from, mess.wait, id)
-				fetchJson(`https://h4ck3rs404-api.herokuapp.com/api/igstalk?usrnm=${q}&apikey=${hackapi}`)
+				fetchJson(`https://api.zeks.xyz/api/igstalk?apikey=${apikeyvinz}&username=${body.slice(9)}`)
 				.then(async(res) => {
-					const picture = res.result.hd_profile_pic_url_info.url
-					const externalurl = res.result.external_url
-					const igverif = res.result.is_verified
-					const igprivate = res.result.is_private
-					const Biodata = res.result.biography
-					const followers1 = res.result.follower_count
-					const following1 = res.result.following_count
-					const jumlahpost = res.result.media_count
-					const nameig = res.result.full_name
-					const UsernameIG = res.result.username
-					const cption = `• *Username:* ${UsernameIG}\n• *Name:* ${nameig}\n• *Verified:* ${igverif}\n• *Private:* ${igprivate}• *Followers:* ${followers1}\n• *Following:* ${following1}\n• *Total Post:* ${jumlahpost}\n• *External Url:* ${externalurl}\n\n• *Bio:* ${Biodata}`
+					const picture = res.profile_pic
+					const igverif = res.is_verified
+					const igprivate = res.is_private
+					const Biodata = res.bio
+					const followers1 = res.follower
+					const businessacc = res.is_bussiness
+					const following1 = res.following
+					const highlights = res.highlight_count
+					const jumlahpost = res.post_count
+					const nameig = res.fullname
+					const UsernameIG = res.username
+					const cption = `• *Username:* ${UsernameIG}\n• *Name:* ${nameig}\n• *Verified:* ${igverif}\n• *Private:* ${igprivate}\n• *Bussiness:* ${businessacc}\n• *Followers:* ${followers1}\n• *Following:* ${following1}\n• *Total Post:* ${jumlahpost}\n• *Highlights:* ${highlights}\n\n• *Bio:* ${Biodata}`
 					await aruga.sendFileFromUrl(from, picture, '', cption, id)
 					.catch(() => {
                     aruga.reply(from, 'Akun tidak dapat ditemukan...', id)
@@ -4560,7 +4579,7 @@ console.log(err)
 		try {
 			const xas3 = await axios.get(`https://api.zeks.xyz/api/igs?apikey=${apikeyvinz}&username=${xas1}`)
 			const xas4 = xas3.data
-			if (xas2 > 5) return aruga.reply(from, 'Maksimal 5!', id)
+			if (xas2 > 11) return aruga.reply(from, 'Maksimal 10!', id)
 			for (let i = 0; i < xas2; i++) {
 				await aruga.sendFileFromUrl(from, xas4.data[i].url, '', '', id)
 			}

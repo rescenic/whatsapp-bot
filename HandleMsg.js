@@ -5785,7 +5785,7 @@ console.log(err)
 	if (!isGroupMsg) return aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam grup', id)
 	if (!isGroupAdmins) return aruga.reply(from, 'Fitur ini hanya bisa digunakan oleh Admin Grup!', id)
 	if (args[0] === 'on') {
-		if (_nsfw.includes(groupId)) return aruga.reply(from, 'Grup ini sudah dimute sebelumnya', id)
+		if (_nsfw.includes(groupId)) return aruga.reply(from, mess.nsfwalready, id)
 		_nsfw.push(groupId)
 		fs.writeFileSync('./lib/database/group/nsfw.json', JSON.stringify(_nsfw))
 		aruga.reply(from, nsfwon, id)

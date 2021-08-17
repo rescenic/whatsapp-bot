@@ -910,12 +910,12 @@ module.exports = HandleMsg = async (aruga, message) => {
             case prefix+'leveling':
                 if (!isGroupMsg) return await aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam Grup!', id)
                 if (!isGroupAdmins) return await aruga.reply(from, 'Fitur ini hanya bisa digunakan oleh Admin Grup!', id)
-                if (ar[0] === 'on') {
+                if (args[0] === 'on') {
                     if (isLevelingOn) return await aruga.reply(from, 'Fitur leveling sudah diaktifkan pada grup ini sebelumnya', id)
                     _leveling.push(groupId)
                     fs.writeFileSync('./lib/database/group/leveling.json', JSON.stringify(_leveling))
                     await aruga.reply(from, 'Fitur Leveling berhasil diaktifkan didalam grup ini', id)
-                } else if (ar[0] === 'off') {
+                } else if (args[0] === 'off') {
 					var thisgroup = _leveling.indexOf(groupId)
                     _leveling.splice(thisgroup, 1)
                     fs.writeFileSync('./lib/database/group/leveling.json', JSON.stringify(_leveling))

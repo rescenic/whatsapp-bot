@@ -5807,7 +5807,7 @@ console.log(err)
 		if (_nsfw.includes(groupId)) return aruga.reply(from, mess.nsfwalready, id)
 		_nsfw.push(groupId)
 		fs.writeFileSync('./lib/database/group/nsfw.json', JSON.stringify(_nsfw))
-		aruga.reply(from, nsfwon, id)
+		aruga.reply(from, mess.nsfwon, id)
 	} else if (args[0] === 'off') {
 		var nsfwsplice = _nsfw.indexOf(groupId)
 		_nsfw.splice(nsfwsplice, 1)

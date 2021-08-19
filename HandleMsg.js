@@ -2694,22 +2694,6 @@ module.exports = HandleMsg = async (aruga, message) => {
 							aruga.reply(from, jelasin, id)
 						})
 					break
-				case prefix + 'anoboy':
-					await aruga.reply(from, mess.wait, id)
-					rugaapi.anoboy()
-						.then(async ({ result }) => {
-							let anoboyInfo = '-----[ *ANOBOY ON-GOING* ]-----'
-							for (let i = 0; i < result.length; i++) {
-								anoboyInfo += `\n\n➸ *Title*: ${result[i].title}\n➸ *URL*: ${result[i].url}\n\n=_=_=_=_=_=_=_=_=_=_=_=_=`
-							}
-							await aruga.reply(from, anoboyInfo, id)
-							console.log('Success sending on-going anime!')
-						})
-						.catch(async (err) => {
-							console.error(err)
-							await aruga.reply(from, 'Error!', id)
-						})
-					break
 				case prefix + 'linknobg':
 					if (args.length == 0) return aruga.reply(from, 'Kirim link untuk menjadikan sticker nobg', id)
 					const linkid = body.slice(10)

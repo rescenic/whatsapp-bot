@@ -693,7 +693,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 					await aruga.reply(from, menus, id)
 					break
 				case prefix + 'help':
-					const bots = `Hi minna, this is Urbae Bot, to find out the commands menu, type *${prefix}menu* , *${prefix}p*`
+					const bots = `Hi ${pushname}, this is Urbae Bot, to find out the commands menu, type *${prefix}menu* , *${prefix}p*`
 					await aruga.reply(from, bots, id)
 					break
 				case prefix + 'rbts':
@@ -702,7 +702,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 					break
 				case prefix + 'rvidanime':
 					aruga.reply(from, mess.wait, id)
-					aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/randomaesthetic?apikey=${lindowapi}`, 'anime.mp4', '', id)
+					aruga.sendFileFromUrl(from, `https://dapuhy-api.herokuapp.com/api/anime/storyanime?apikey=${dapuhyapi}`, 'anime.mp4', '', id)
 					break
 				case prefix + 'rexo':
 					aruga.reply(from, mess.wait, id)
@@ -1075,13 +1075,6 @@ module.exports = HandleMsg = async (aruga, message) => {
 				case prefix + 'maps':
 					if (!isGroupAdmins) return aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam grup!', id)
 					rugaapi.maps()
-						.then(async (res) => {
-							await aruga.reply(from, `${res}`, id)
-						})
-					break
-				case prefix + 'bokep2':
-					if (!isGroupAdmins) return aruga.reply(from, 'Fitur ini hanya bisa digunakan oleh Owner Bot, karena takut penyalahgunaan', id)
-					rugaapi.bokep2()
 						.then(async (res) => {
 							await aruga.reply(from, `${res}`, id)
 						})
@@ -2999,6 +2992,20 @@ module.exports = HandleMsg = async (aruga, message) => {
 							aruga.reply(from, 'Error', id)
 						})
 					break
+				case prefix + 'asupan6':
+					aruga.reply(from, mess.wait, id)
+					fetch('http://sansekai.my.id/sansekai.txt')
+						.then(res => res.text())
+						.then(body => {
+							let asupantxt = body.split('\n')
+							let asupanvid = asupantxt[Math.floor(Math.random() * asupantxt.length)]
+							aruga.sendFileFromUrl(from, asupanvid, 'asupan.mp4', 'aahh wangy wangy', id)
+								.then(() => console.log('Success sending Asupan Video'))
+						})
+						.catch(() => {
+							aruga.reply(from, 'Ada yang Error!', id)
+						})
+					break
 				case prefix + 'asupan5':
 					aruga.reply(from, mess.wait, id)
 					axios.get(`http://lolhuman.herokuapp.com/api/asupan?apikey=${lolhuman}`)
@@ -3731,6 +3738,22 @@ module.exports = HandleMsg = async (aruga, message) => {
 							aruga.reply(from, err.message, id)
 						})
 					break
+				case prefix + 'cnnindonesia':
+				case prefix + 'cnnindo':
+					aruga.reply(from, mess.wait, id)
+					const cnnapi = await axios.get(`https://zenzapi.xyz/api/cnnindonesia?apikey=${zenzapi}`)
+					const cnndata = cnnapi.data
+					const cnnresult = cnndata.result
+					let cnntext = `*「 CNN INDONESIA 」*\n`
+					for (let i = 0; i < cnnresult.length; i++) {
+						cnntext += `\n─────────────────\n\n• *Berita:* ${cnnresult[i].judul}\n• *Tema:* ${cnnresult[i].tema}\n• *Rilis:* ${cnnresult[i].rilis}\n• *Url:* ${cnnresult[i].url}\n`
+					}
+					await aruga.sendFileFromUrl(from, cnnresult[0].thumb, 'img.jpg', cnntext, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
+					break
 				case prefix + 'appstore':
 					if (args.length == 0) return aruga.reply(from, `Mencari aplikasi dari AppStore!\nGunakan ${prefix}appstore nama aplikasi\nContoh: ${prefix}appstore instagram`, id)
 					const apps = body.slice(10)
@@ -3815,7 +3838,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 				case prefix + 'myzodiak':
 					if (args.length == 0) return await aruga.reply(from, `Kirim perintah ${prefix}myzodiak namazodiak\nContoh: ${prefix}myzodiak aquarius`, id)
 					await aruga.reply(from, mess.wait, id)
-					rugaapi.zodiak2(args[0])
+					fetchJson(``)
 						.then(async ({ result }) => {
 							if (result.status === 204) {
 								return await aruga.reply(from, result.ramalan, id)
@@ -3836,6 +3859,30 @@ module.exports = HandleMsg = async (aruga, message) => {
 					await aruga.reply(from, cekzodiak, id)
 						.catch(() => {
 							aruga.reply(from, 'Ada yang Error!', id)
+						})
+					break
+				case prefix + 'zodiakmingguan':
+					if (args.length == 0) return aruga.reply(from, `Untuk mengecek zodiak mingguan, gunakan ${prefix}zodiakmingguan nama zodiak\nContoh: ${prefix}zodiakmingguan sagitarius`, id)
+					fetchJson(`https://zenzapi.xyz/api/zodiak-harian?query=${args[0]}&apikey=${zenzapi}`)
+						.then(async (res) => {
+							if (res.status == false) return aruga.reply(from, 'Zodiak yang kamu cari tidak ada, pastikan ketik dengan benar', id)
+							const namezod = res.result.judul
+							const thumbzod = res.result.thumb
+							const datezod = res.result.date
+							const nohoki = res.result.no_hoki
+							const teoriumum = res.result.teori.umum
+							const teorilove = res.result.teori.love
+							const teoriduit = res.result.teori.duit
+							const bethetext = `Zodiak: ${namezod}\nTanggal: ${datezod}\nNo Hoki: ${nohoki}\nTeori Umum: ${teoriumum}\nTeori Cinta: ${teorilove}\nTeori Keuangan: ${teoriduit}`
+							await aruga.sendFileFromUrl(from, thumbzod, 'thumbnail.jpg', bethetext, id)
+								.catch(err => {
+									console.log(err)
+									aruga.reply(from, err.message, id)
+								})
+						})
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
 						})
 					break
 				case prefix + 'artinama':
@@ -4214,11 +4261,18 @@ module.exports = HandleMsg = async (aruga, message) => {
 					break
 				case prefix + 'gsmarena':
 					if (args.length == 0) return aruga.reply(from, `Untuk mencari spefisikasi handphone dari Website GSMArena\nKetik ${prefix}gsmarena [jenishandphone]`, id)
-					const gsms = await rugaapi.gsm(args[0])
-					const fotox = await rugaapi.gsmpict(args[0])
-					await aruga.sendFileFromUrl(from, fotox, '', gsms, id)
-						.catch(() => {
-							aruga.reply(from, 'Maaf, Jenis Handphone yang anda cari tidak dapat kami temukan', id)
+					fetchJson(`https://api.zeks.me/api/gsmArena?apikey=${apikeyvinz}&q=${body.slice(10)}`)
+						.then(async (res) => {
+							if (res.status == false) return aruga.reply(from, 'Barang yang kamu cari tidak ada', id)
+							const namabarang = res.data.title
+							const linkbarang = res.data.link
+							const thumbnailhp = res.data.thumb
+							const stringnich = res.data.full_desc.string
+							await aruga.sendFileFromUrl(from, thumbnailhp, '', `Nama: ${namabarang}\nLink: ${linkbarang}\n${stringnich}`, id)
+								.catch(err => {
+									console.log(err)
+									aruga.reply(from, err.message, id)
+								})
 						})
 					break
 				case prefix + 'memeindo2':

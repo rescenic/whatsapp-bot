@@ -698,7 +698,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 					break
 				case prefix + 'rbts':
 					aruga.reply(from, mess.wait, id)
-					aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/bts?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
+					aruga.sendFileFromUrl(from, `https://dapuhy-api.herokuapp.com/api/randomimage/batues?apikey=${dapuhyapi}`, 'img.jpg', 'nehh', id)
 					break
 				case prefix + 'rvidanime':
 					aruga.reply(from, mess.wait, id)
@@ -706,15 +706,15 @@ module.exports = HandleMsg = async (aruga, message) => {
 					break
 				case prefix + 'rexo':
 					aruga.reply(from, mess.wait, id)
-					aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/exo?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
+					aruga.sendFileFromUrl(from, `https://dapuhy-api.herokuapp.com/api/randomimage/exontol?apikey=${dapuhyapi}`, 'img.jpg', 'nehh', id)
 					break
 				case prefix + 'rblackpink':
 					aruga.reply(from, mess.wait, id)
-					aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/blackpink?apikey=${lindowapi}`, 'img.jpg', 'nehh', id)
+					aruga.sendFileFromUrl(from, `https://dapuhy-api.herokuapp.com/api/randomimage/blekpink?apikey=${dapuhyapi}`, 'blackpink.jpg', '', id)
 					break
 				case prefix + 'rcitacita':
 					aruga.reply(from, mess.wait, id)
-					await aruga.sendFileFromUrl(from, `https://lindow-api.herokuapp.com/api/citacita?&apikey=${lindowapi}`, 'citacita.mp3', '', id)
+					await aruga.sendFileFromUrl(from, `https://h4ck3rs404-api.herokuapp.com/api/cita-cita?apikey=${hackapi}`, 'citacita.mp3', '', id)
 					break
 				case prefix + 'ceritahorror':
 				case prefix + 'ceritahoror':
@@ -2268,10 +2268,24 @@ module.exports = HandleMsg = async (aruga, message) => {
 					}
 					break
 				case prefix + 'infobmkg':
-					axios.get(`https://mnazria.herokuapp.com/api/bmkg-gempa`).then(res => {
-						const inidia = `${res.data.result}\n*Saran* : ${res.data.saran}`
-						aruga.sendText(from, inidia, id)
-					})
+					aruga.reply(from, mess.wait, id)
+					axios.get(`http://zekais-api.herokuapp.com/gempa`)
+						.then(async (res) => {
+							if (res.data.status == false) return aruga.reply(from, 'REST-API sedang error', id)
+							const imageth = res.data.image
+							const magnitudo = res.data.magnitudo
+							const kedalamannya = res.data.kedalaman
+							const wilayahhh = res.data.wilayah
+							const waktuuu = res.data.waktu
+							const lintang = res.data.lintang
+							const bujur = res.data.bujur
+							const txthehe = `Magnitudo: ${magnitudo}\nKedalaman: ${kedalamannya}\nWilayah: ${wilayahhh}\nWaktu: ${waktuuu}\nLintang: ${lintang}\nBujur: ${bujur}`
+							aruga.sendFileFromUrl(from, imageth, 'thumb.jpg', txthehe, id)
+						})
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
 					break
 				case prefix + 'bucin':
 					axios.get(`http://zekais-api.herokuapp.com/bucin`).then(res => {
@@ -3822,19 +3836,26 @@ module.exports = HandleMsg = async (aruga, message) => {
 				case prefix + 'myzodiak':
 					if (args.length == 0) return await aruga.reply(from, `Kirim perintah ${prefix}myzodiak namazodiak\nContoh: ${prefix}myzodiak aquarius`, id)
 					await aruga.reply(from, mess.wait, id)
-					fetchJson(``)
-						.then(async ({ result }) => {
-							if (result.status === 204) {
-								return await aruga.reply(from, result.ramalan, id)
-							} else {
-								let ramalan = `Zodiak: ${result.zodiak}\n\nRamalan: ${result.ramalan}\n\nAngka laksek: ${result.nomorKeberuntungan}\n\n${result.motivasi}\n\n${result.inspirasi}`
-								await aruga.reply(from, ramalan, id)
-									.then(() => console.log('Success sending zodiac fortune!'))
-							}
+					fetchJson(`https://zenzapi.xyz/api/zodiak-harian?query=${args[0]}&apikey=${zenzapi}`)
+						.then(async (res) => {
+							if (res.status == false) return aruga.reply(from, 'Zodiak yang kamu cari tidak ada', id)
+							const zodiakmu = res.result.judul
+							const thumbnailni = res.result.thumb
+							const datezodiak = res.result.date
+							const nohoky = res.result.no_hoki
+							const teoriumum2 = res.result.teori.umum
+							const teoricinta2 = res.result.teori.love
+							const teoriduit2 = res.result.teori.keuangan
+							const initextnya = `Zodiak: ${zodiakmu}\nTanggal: ${datezodiak}\nNo Hoki: ${nohoky}\nUmum: ${teoriumum2}\nPercintaan: ${teoricinta2}\nKeuangan: ${teoriduit2}`
+							await aruga.sendFileFromUrl(from, thumbnailni, 'thumb.jpg', initextnya, id)
+								.catch(err => {
+									console.log(err)
+									aruga.reply(from, err.message, id)
+								})
 						})
-						.catch(async (err) => {
-							console.error(err)
-							await aruga.reply(from, 'Error!', id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.messsage, id)
 						})
 					break
 				case prefix + 'zodiak':
@@ -4112,16 +4133,17 @@ module.exports = HandleMsg = async (aruga, message) => {
 				case prefix + 'ppcp':
 				case prefix + 'ppcouple':
 					aruga.reply(from, mess.wait, id)
-					axios.get(`https://lindow-api.herokuapp.com/api/ppcouple?apikey=${lindowapi}`)
+					axios.get(`https://dapuhy-api.herokuapp.com/api/randomimage/couple?apikey=${dapuhyapi}`)
 						.then(async (res) => {
-							await aruga.sendFileFromUrl(from, res.data.result.male, 'cp.jpg', '', id)
-							await aruga.sendFileFromUrl(from, res.data.result.female, 'cp.jpg', '', id)
+							await aruga.sendFileFromUrl(from, res.data.result.pria, 'cp.jpg', '', id)
+							await aruga.sendFileFromUrl(from, res.data.result.wanita, 'cp.jpg', '', id)
 								.catch(() => {
 									aruga.reply(from, 'lagii error nich', id)
 								})
 						})
 						.catch(err => {
 							console.log(err)
+							aruga.reply(from, err.message, id)
 						})
 					break
 				case prefix + 'memes':
@@ -4375,10 +4397,15 @@ module.exports = HandleMsg = async (aruga, message) => {
 				case prefix + 'chord':
 					if (args.length == 0) return aruga.reply(from, `Untuk mencari lirik dan chord dari sebuah lagu\bketik: ${prefix}chord [judul_lagu]`, id)
 					const chordq = body.slice(7)
-					axios.get(`https://api.vhtear.com/chordguitar?query=${chordq}&apikey=${vhtearkey}`)
+					axios.get(`https://docs-jojo.herokuapp.com/api/chord?q=${chordqq}`)
 						.then(async (res) => {
-							const textchord = `Chord Guitar : ${chordq}\n\n${res.data.result.result}`
+							if (res.data.status == false) return aruga.reply(from, res.data.error, id)
+							const textchord = `Chord Guitar : ${chordq}\n\n${res.data.result}`
 							aruga.reply(from, textchord, id)
+						})
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
 						})
 					break
 				case prefix + 'ssweb':
@@ -5438,17 +5465,31 @@ module.exports = HandleMsg = async (aruga, message) => {
 							aruga.reply(from, 'Linknya ga valid kali atau gada diweb', id)
 						})
 					break
+				case prefix + 'gabut':
+					axios.get(`https://h4ck3rs404-api.herokuapp.com/api/gabut?apikey=${hackapi}`)
+						.then(async (res) => {
+							aruga.reply(from, `Aktivitas: ${res.data.result.activity}\nTipe: ${res.data.result.type}`)
+								.catch(err => {
+									console.log(err)
+									aruga.reply(from, err.message, id)
+								})
+						})
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
+					break
 				case prefix + 'sfile':
 					if (args.length == 0) return aruga.reply(from, `Untuk mencari file/config di website Sfile, kirim perintah ${prefix}sfile nama config/file`, id)
 					const cariconfig = body.slice(7)
 					await aruga.reply(from, mess.wait, id)
 					try {
-						const becon = await axios.get(`https://fzn-gaz.herokuapp.com/api/sfile?search=${cariconfig}`)
+						const becon = await axios.get(`https://dapuhy-api.herokuapp.com/api/search/sfile?query=${cariconfig}&apikey=${dapuhyapi}`)
 						const configdat = becon.data
-						const { result } = configdat
+						const gapapa = configdat.result
 						let confa = `*「 SFILE 」*\n`
-						for (let i = 0; i < result.length; i++) {
-							confa += `\n─────────────────\n\n*•Title:* ${result[i].title}\n*•Size:* ${result[i].size}\n*•Link:* ${result[i].link}\n`
+						for (let i = 0; i < gapapa.length; i++) {
+							confa += `\n─────────────────\n\n*•Title:* ${gapapa[i].title}\n*•Size:* ${result[i].size}\n*•Link:* ${result[i].link}\n`
 						}
 						await aruga.reply(from, confa, id)
 					} catch (err) {
@@ -5513,12 +5554,20 @@ module.exports = HandleMsg = async (aruga, message) => {
 						})
 					break
 				case prefix + 'happymod':
-					if (args.length == 0) return aruga.reply(from, `Fitur untuk mencari sebuah aplikasi mod dari Happymod\nContoh : ${prefix}happymod pubg\n\nusahain lower case ya jangan ada huruf kapital`, id)
-					const happymod = await axios.get(`https://tobz-api.herokuapp.com/api/happymod?q=${body.slice(10)}&apikey=${tobzapi}`)
-					if (happymod.data.error) return aruga.reply(from, happymod.data.error, id)
-					const modo = happymod.data.result[0]
-					const resmod = `• *Title* : ${modo.title}\n• *Purchase* : ${modo.purchase}\n• *Size* : ${modo.size}\n• *Root* : ${modo.root}\n• *Version* : ${modo.version}\n• *Price* : ${modo.price}\n• *Link* : ${modo.link}\n• *Download* : ${modo.download}`
-					aruga.sendFileFromUrl(from, modo.image, 'HAPPYMOD.jpg', resmod, id)
+					if (args.length == 0) return aruga.reply(from, `Fitur untuk mencari sebuah aplikasi mod dari Happymod\nContoh : ${prefix}happymod pubg`, id)
+					const happymod = await axios.get(`https://zekais-api.herokuapp.com/happymodsr?query=${body.slice(10)}`)
+					const hppy = happymod.data
+					const modo = hppy.result
+					if (modo.length == 0) return aruga.reply(from, 'Tidak dapat menemukan hasil', id)
+					let resmod = `*「 HAPPY MOD 」*\n`
+					for (let i = 0; i < modo.length; i++) {
+						resmod += `\n─────────────────\n\n• *Title:* ${modo[i].name}\n• *Rating:* ${modo[i].rating}\n• *Url:* ${modo[i].url}\n`
+					}
+					aruga.sendFileFromUrl(from, modo[0].thumb, 'HAPPYMOD.jpg', resmod, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
 					break
 				case prefix + 'burn':
 					if (args.length == 0) return aruga.reply(from, `textnya mana sayang?`, id)

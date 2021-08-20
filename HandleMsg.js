@@ -3779,6 +3779,62 @@ module.exports = HandleMsg = async (aruga, message) => {
 							aruga.reply(from, err.message, id)
 						})
 					break
+				case prefix + 'nanimelatest':
+					aruga.reply(from, mess.wait, id)
+					const nanimeurl = await axios.get(`http://zekais-api.herokuapp.com/nanimenew`)
+					const nanimedata = nanimeurl.data
+					if (nanimedata.status == 500) return aruga.reply(from, nanimedata.result, id)
+					const nanimeres = nanimedata.result
+					let nanimetxt = `*「 NANIME LATEST 」*\n`
+					for (let i = 0; i < nanimeres.length; i++) {
+						nanimetxt += `\n─────────────────\n\n• *Judul:* ${nanimeres[i].name}\n• *Rating:* ${nanimeres[i].rating}\n• *Status:* ${nanimeres[i].status}\n• *Url:* ${nanimeres[i].url}\n`
+					}
+					await aruga.sendFileFromUrl(from, nanimeres[0].thumb, 'thumb.jpg', nanimetxt, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
+					break
+				case prefix + 'nanimesr':
+					if (args.length == 0) return aruga.reply(from, `Mencari anime dari website Nanime gunakan ${prefix}nanimesr query\nContoh: ${prefix}nanimesr sword`, id)
+					const sranime = body.slice(10)
+					aruga.reply(from, mess.wait, id)
+					const sranimeurl = axios.get(`http://zekais-api.herokuapp.com/nanimesr?query=${sranime}`)
+					const srdatanime = sranimeurl.data
+					if (srdatanime == 500) return aruga.reply(from, srdatanime.result, id)
+					const resultnime = srdatanime.result
+					let txtnanim = `*「 NANIME SEARCH 」*\n`
+					for (let i = 0; i < resultnime.length; i++) {
+						txtanim += `\n─────────────────\n\n• *Judul:* ${resultnime[i].name}\n• *Rating:* ${resultnime[i].rating}\n• *Status:* ${resultnime[i].status}\n• *Url:* ${resultnime[i].url}\n`
+					}
+					await aruga.sendFileFromUrl(from, resultnime[0].thumb, 'thumb.jpg', txtanim, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
+					break
+				case prefix + 'nanimeget':
+					if (args.length == 0) return aruga.reply(from, `Masukan url nanime nya\nContoh: ${prefix}nanimeget https://nanime.biz/anime/sword-art-online-alicization-war-of-underworld-2nd-season`, id)
+					const getnanime = body.slice(11)
+					aruga.reply(from, mess.wait, id)
+					const geturlnime = axios.get(`http://zekais-api.herokuapp.com/nanimeget?url=${getnanime}`)
+					const nanimedata2 = geturlnime.data.result
+					if (geturlnime.data.result.status == 500) return aruga.reply(from, geturlnime.data.result, id)
+					const judulnanime = nanimedata2.title
+					const thumbnanime = nanimedata2.thumb
+					const descnanime = nanimedata2.desc
+					aruga.sendFileFromUrl(from, thumbnanime, 'thumb.jpg', `Judul: ${judulnanime}\nDeskripsi: ${descnanime}`, id)
+					const nameandurl = nanimedata2.url
+					let nanimegetxt = `*「 NANIME INFO 」*\n`
+					for (let i = 0; i < nanimedata2.length; i++) {
+						nanimegetxt += `\n─────────────────\n\n• *Judul:* ${nanimedata2[i].name}\n• *Url:* ${nanimedata2[i].url}\n`
+					}
+					await aruga.reply(from, nanimegetxt, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
+					break
 				case prefix + 'appstore':
 					if (args.length == 0) return aruga.reply(from, `Mencari aplikasi dari AppStore!\nGunakan ${prefix}appstore nama aplikasi\nContoh: ${prefix}appstore instagram`, id)
 					const apps = body.slice(10)

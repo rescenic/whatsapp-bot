@@ -6199,6 +6199,13 @@ _Desc di update oleh : @${chat.groupMetadata.descOwner.replace('@c.us', '')} pad
 					const ch = `https://chat.whatsapp.com/GB1q8SGBHsNHGW8kkzZd90\n\nSkuyy joinn`
 					await aruga.sendLinkWithAutoPreview(from, ch)
 					break
+				case prefix + 'discordserver':
+					const serverdiscord = 'https://discord.gg/bvq3gAZh5J\n\nSini join'
+					await aruga.sendLinkWithAutoPreview(from, serverdiscord)
+					break
+				case prefix + 'discord':
+					await aruga.reply(from, `English :\nNew feature is discord emoji, if u send code emoji from discord, bot will send it to be a sticker\nIndonesian :\nFitur terbaru adalah emoji discord, jika kamu mengirim kode emoji dari discord, Bot akan mengirimkan emoji berupa stiker\nExample: :veryangry:`, id)
+					break
 				case prefix + 'tiktokaudio':
 					if (args.length == 0) return aruga.reply(from, `Fitur untuk mengkonversi Video menjadi Audio!\nKirim perintah ${prefix}tiktokaudio link tiktok`, id)
 					const linktk = body.slice(13)

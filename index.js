@@ -12,7 +12,7 @@ const start = async (aruga = new aruga()) => {
     console.log(color('------------------------------------------------------------------------', 'white'))
     console.log(color('[CREATOR]', 'aqua'), color('Thoriq Azzikra', 'magenta'))
     console.log(color('[BOT]', 'aqua'), color('URBAE BOT is now Online!', 'magenta'))
-    console.log(color('[VER]', 'aqua'), color('2.5.7', 'magenta'))
+    console.log(color('[VER]', 'aqua'), color('2.5.8', 'magenta'))
     aruga.onStateChanged((state) => {
         console.log(color('-> [STATE]'), state)
         if (state === 'CONFLICT') aruga.forceRefocus()

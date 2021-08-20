@@ -4398,7 +4398,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 				case prefix + 'silverpb':
 					if (args.length == 0) return aruga.reply(from, `Bot akan mengirimkan Silver Play Button dengan kata yang anda masukkan\nContoh : ${prefix}silverpb Urbaee`, id)
 					const silsc = body.slice(10)
-					await aruga.sendFileFromUrl(from, `https://api.zeks.me/api/splaybutton?apikey=${apikeyvinz}&text=${silsc}`, '', `Congrats ${silsc} for passing 100K Subscribers, id)
+					await aruga.sendFileFromUrl(from, `https://api.zeks.me/api/splaybutton?apikey=${apikeyvinz}&text=${silsc}`, '', `Congrats ${silsc} for passing 100K Subscribers`, id)
 						.catch(err => {
 							console.log(err)
 							aruga.reply(from, err.message, id)

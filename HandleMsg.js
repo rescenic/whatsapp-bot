@@ -340,6 +340,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 		}
 
 		const mess = {
+			restmes: 'Rest API sedang error',
 			wait: '_Waitt, lemme process this shit_',
 			nsfwalready: 'Fitur NSFW sudah aktif sebelumnya di grup ini',
 			nsfwoff: 'Fitur NSFW belum aktif di grup ini',
@@ -849,33 +850,58 @@ module.exports = HandleMsg = async (aruga, message) => {
 							aruga.reply(from, 'ada yang error!!', id)
 						})
 					break
+				case prefix + 'marvel':
+					if (args.length == 0) return aruga.reply(from, `Kirim perintah ${prefix}marvel teks1 teks2\nContoh: ${prefix}marvel Urbaee Xyz`, id)
+					aruga.reply(from, mess.wait, id)
+					const textmar1 = args[0]
+					const textmar2 = args[1]
+					aruga.sendFileFromUrl(from, `https://zenzapi.xyz/api/textpro/marvel?text=${textmar1}&text2=${textmar2}&apikey=${zenzapi}`, '', id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
+					break
 				case prefix + 'blackpink':
-					if (args.length == 0) return aruga.reply(from, `kirim perintah ${prefix}logoff [nama]`, id)
+					if (args.length == 0) return aruga.reply(from, `kirim perintah ${prefix}blackpink nama`, id)
 					aruga.reply(from, mess.wait, id)
 					const bpk = body.slice(11)
-					aruga.sendFileFromUrl(from, `https://api.vhtear.com/blackpinkicon?text=${bpk}&apikey=${vhtearkey}`, `${bpk}.jpg`, `nehh ngab`, id)
+					aruga.sendFileFromUrl(from, `https://zenzapi.xyz/api/textpro/blackpink?text=${bpk}&apikey=${zenzapi}`, `${bpk}.jpg`, `nehh ngab`, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
 					break
 				case prefix + 'glowtext':
 					if (args.length == 0) return aruga.reply(from, `kirim perintah ${prefix}logoff [nama]`, id)
 					aruga.reply(from, mess.wait, id)
 					const srhdah = body.slice(10)
 					aruga.sendFileFromUrl(from, `https://api.vhtear.com/glowtext?text=${srhdah}&apikey=${vhtearkey}`, `${srhdah}.jpg`, `nehh ngab`, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
 					break
 				case prefix + 'logoff':
 					if (args.length == 0) return aruga.reply(from, `kirim perintah ${prefix}logoff [nama]`, id)
 					aruga.reply(from, mess.wait, id)
 					const jadiin = body.slice(8)
-					const hero = ["alok", "alvaro", "andrew", "antonio", "caroline", "ford", "hayato", "joseph", "kelly", "laura", "maxim", "miguel", "misa", "moco", "nikita", "notora", "olivia", "paloma", "rafael", "shani", "steffie", "wukong"]
-					let awikxs = hero[Math.floor(Math.random() * hero.length)]
-					aruga.sendFileFromUrl(from, `https://api.vhtear.com/logoff?hero=${awikxs}&text=${jadiin}&apikey=${vhtearkey}`, `${jadiin}.jpg`, 'nehh ngab...', id)
+					aruga.sendFileFromUrl(from, `https://api.zeks.me/api/epep?apikey=${apikeyvinz}&text=${jadiin}`, `${jadiin}.jpg`, 'nehh ngab...', id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
 					break
 				case prefix + 'logoph':
-					if (args.length === 0) return aruga.reply(from, `Kirim perintah *${prefix}pornhub [ Teks1|Teks2 ]*,\n\n contoh : *${prefix}logoph Urbaee|XYZ*`, id)
-					const lpornhub = q.split('|')[0]
-					const lpornhub2 = q.split('|')[1]
+					if (args.length === 0) return aruga.reply(from, `Kirim perintah *${prefix}logoph  Teks1 Teks2 ]*,\n\n contoh : *${prefix}logoph Urbaee Xyz*`, id)
+					const lpornhub = args[0]
+					const lpornhub2 = args[1]
 					if (lpornhub > 10) return aruga.reply(from, '*Teks1 Terlalu Panjang!*\n_Maksimal 10 huruf!_', id)
 					if (lpornhub2 > 10) return aruga.reply(from, '*Teks2 Terlalu Panjang!*\n_Maksimal 10 huruf!_', id)
-					aruga.sendFileFromUrl(from, `https://api.zeks.xyz/api/phlogo?text1=${lpornhub}&text2=${lpornhub2}&apikey=${apikeyvinz}`, '', '', id)
+					aruga.sendFileFromUrl(from, `https://zenzapi.xyz/api/textpro/pornhub?text=${lpornhub}&text2=${lpornhub2}&apikey=${zenzapi}`, '', '', id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
+						})
 					break
 				// Level [BETA] by Slavyan
 				case prefix + 'level':
@@ -2658,7 +2684,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 						const glitch2 = q.split('|')[1]
 						if (glitch1.length > 10) return aruga.reply(from, '*Teks1 Terlalu Panjang!*\n_Maksimal 10 huruf!_', id)
 						if (glitch2.length > 15) return aruga.reply(from, '*Teks2 Terlalu Panjang!*\n_Maksimal 15 huruf!_', id)
-						aruga.sendFileFromUrl(from, `https://api.zeks.xyz/api/gtext?text1=${glitch1}&text2=${glitch2}&apikey=${apikeyvinz}`)
+						aruga.sendFileFromUrl(from, `https://api.zeks.xyz/api/gtext?text1=${glitch1}&text2=${glitch2}&apikey=${apikeyvinz}`, '', id)
 							.catch(err => {
 								console.log(err)
 								aruga.reply(from, 'Terjadi kesalahan, silahkan coba lagi', id)
@@ -4306,17 +4332,19 @@ module.exports = HandleMsg = async (aruga, message) => {
 				case prefix + 'goldpb':
 					if (args.length == 0) return aruga.reply(from, `Bot akan mengirimkan Gold Play Button dengan nama yang kalian custom sendiri\nContoh : ${prefix}goldpb Urbaee`, id)
 					const yuza = body.slice(8)
-					await aruga.sendFileFromUrl(from, `https://fzn-gaz.herokuapp.com/api/gplaybutton?text=${yuza}`, 'img.jpg', `Congrats *${pushname}* for have 1 Million Subscribers`, id)
-						.catch(() => {
-							aruga.reply(from, 'Error disebabkan oleh sistem', id)
+					await aruga.sendFileFromUrl(from, `https://api.zeks.me/api/gplaybutton?apikey=${apikeyvinz}&text=${yuza}`, 'img.jpg', `Congrats *${yuza} for passed 1M Subscribers`, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
 						})
 					break
 				case prefix + 'silverpb':
 					if (args.length == 0) return aruga.reply(from, `Bot akan mengirimkan Silver Play Button dengan kata yang anda masukkan\nContoh : ${prefix}silverpb Urbaee`, id)
 					const silsc = body.slice(10)
-					await aruga.sendFileFromUrl(from, `https://fzn-gaz.herokuapp.com/api/splaybutton?text=${silsc}`, '', '', id)
-						.catch(() => {
-							aruga.reply(from, 'Error disebabkan oleh sistem', id)
+					await aruga.sendFileFromUrl(from, `https://api.zeks.me/api/splaybutton?apikey=${apikeyvinz}&text=${silsc}`, '', `Congrats ${silsc} for passing 100K Subscribers, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
 						})
 					break
 				case prefix + 'stalktwit':
@@ -5131,22 +5159,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 							await aruga.reply(from, `${res}`, id)
 						})
 					break
-
-				//Fun Menu
-				case prefix + 'klasemen':
-				case prefix + 'klasmen':
-					if (!isGroupMsg) return aruga.reply(from, 'Maaf, perintah ini hanya dapat dipakai didalam grup!', id)
-					const klasemen = db.get('group').filter({ id: groupId }).map('members').value()[0]
-					let urut = Object.entries(klasemen).map(([key, val]) => ({ id: key, ...val })).sort((a, b) => b.denda - a.denda);
-					let textKlas = "*Klasemen Denda Sementara*\n"
-					let i = 1;
-					urut.forEach((klsmn) => {
-						textKlas += i + ". @" + klsmn.id.replace('@c.us', '') + " ➤ Rp" + formatin(klsmn.denda) + "\n"
-						i++
-					});
-					await aruga.sendTextWithMentions(from, textKlas)
-					break
-
+					
 				// Group Commands (group admin only)
 				case prefix + 'add':
 					if (!isGroupMsg) return aruga.reply(from, 'Maaf, perintah ini hanya dapat dipakai didalam grup!', id)
@@ -5390,11 +5403,12 @@ module.exports = HandleMsg = async (aruga, message) => {
 					const tahtuy = `https://api.zeks.xyz/api/hartatahta?text=${jreng}&apikey=${apikeyvinz}`
 					aruga.sendFileFromUrl(from, tahtuy, `${jreng}.jpg`, `*_Harta_*\n*_Tahta_*\n*_${jreng}_*`, id)
 					aruga.sendImageAsSticker(from, tahtuy, { author: author, pack: pack, keepScale: true })
-						.catch((err) => {
-							aruga.reply(from, 'Error', id)
-						})
 						.catch(() => {
 							aruga.reply(from, 'Error', id)
+						})
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
 						})
 					break
 				case prefix + 'family100':

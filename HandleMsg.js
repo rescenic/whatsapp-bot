@@ -2428,7 +2428,8 @@ module.exports = HandleMsg = async (aruga, message) => {
 					const nulisq = body.slice(7)
 					const nulisp = await rugaapi.tulis(nulisq)
 					await aruga.sendImage(from, `${nulisp}`, '', 'Nih...', id)
-						.catch(() => {
+						.catch(err => {
+							console.log(err)
 							aruga.reply(from, 'Ada yang Error!', id)
 						})
 					break

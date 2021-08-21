@@ -1412,7 +1412,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 						const contact = ct.pushname
 						const dp = await aruga.getProfilePicFromServer(userid)
 						const pictrand2 = menupict[Math.floor(Math.random() * (menupict.length))]
-						if (dp == undefined) {
+						if (dp == 'ERROR: 401') {
 							var pfp = pictrand2
 						} else {
 							var pfp = dp

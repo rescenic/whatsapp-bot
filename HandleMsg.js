@@ -911,7 +911,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 					const userLevel = level.getLevelingLevel(sender.id, _level)
 					const userXp = level.getLevelingXp(sender.id, _level)
 					const ppLink = await aruga.getProfilePicFromServer(serial)
-					if (ppLink === undefined || ppLink === '') {
+					if (ppLink === 'ERROR: 401') {
 						var pepe = errorImg
 					} else {
 						pepe = ppLink

@@ -910,8 +910,8 @@ module.exports = HandleMsg = async (aruga, message) => {
 					if (!isGroupMsg) return await aruga.reply(from, 'Fitur ini hanya bisa digunakan didalam Grup!', id)
 					const userLevel = level.getLevelingLevel(sender.id, _level)
 					const userXp = level.getLevelingXp(sender.id, _level)
-					const ppLink = await aruga.getProfilePicFromServer(sender.id)
-					if (ppLink === undefined) {
+					const ppLink = await aruga.getProfilePicFromServer(serial)
+					if (ppLink === undefined || ppLink === '') {
 						var pepe = errorImg
 					} else {
 						pepe = ppLink

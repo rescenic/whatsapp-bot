@@ -3759,12 +3759,12 @@ module.exports = HandleMsg = async (aruga, message) => {
 					aruga.reply(from, mess.wait, id)
 					const userapi = await axios.get(`https://h4ck3rs404-api.herokuapp.com/api/iguser?q=${userinsta}&apikey=${hackapi}`)
 					const userdata = userapi.data
-					const resultdata = userdata.result
+					const resultdata2 = userdata.result
 					let instatext = `*「 INSTAGRAM USER 」*\n`
-					for (let i = 0; i < resultdata.length; i++) {
-						instatext = `\n─────────────────\n\n• *Username:* ${resultdata[i].username}\n• *Fullname:* ${resultdata[i].full_name}\n• *Verified:* ${resultdata[i].verified_user}\n• *Private:* ${resultdata[i].private_user}\n`
+					for (let i = 0; i < resultdata2.length; i++) {
+						instatext = `\n─────────────────\n\n• *Username:* ${resultdata2[i].username}\n• *Fullname:* ${resultdata2[i].full_name}\n• *Verified:* ${resultdata2[i].verified_user}\n• *Private:* ${resultdata2[i].private_user}\n`
 					}
-					await aruga.sendFileFromUrl(from, resultdata[0].profile_pic, 'profile.jpg', instatext, id)
+					await aruga.sendFileFromUrl(from, resultdata2[0].profile_pic, 'profile.jpg', instatext, id)
 						.catch(err => {
 							console.log(err)
 							aruga.reply(from, err.message, id)

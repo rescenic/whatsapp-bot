@@ -110,6 +110,7 @@ let {
 	hackapi,
 	fahmiapi,
 	lolhuman,
+	bxhunter,
 	dapuhyapi,
 	paiskey,
 	leysapi,
@@ -1544,12 +1545,18 @@ module.exports = HandleMsg = async (aruga, message) => {
 				case prefix + 'youwatch':
 					if (args.length == 0) return aruga.reply(from, `Mencari sebuah film drakor dari website You Watch!\nContoh : ${prefix}youwatch vagabond`, id)
 					await aruga.reply(from, mess.wait, id)
-					axios.get(`https://tobz-api.herokuapp.com/api/youwatch?q=${body.slice(10)}&apikey=${tobzapi}`)
-						.then(async (res) => {
-							aruga.sendFileFromUrl(from, res.data.result[0].image, 'img.jpg', `• *Title:* ${res.data.result[0].title}\n• *Viewers:* ${res.data.result[0].views}\n• *Type:* ${res.data.result[0].type}\n• *Year:* ${res.data.result[0].year}\n• *Country:* ${res.data.result[0].country}\n• *Genre:* ${res.data.result[0].genre}\n• *Link:* ${res.data.result[0].link}`, id)
-								.catch((err) => {
-									aruga.reply(from, err, id)
-								})
+					const youwatchsr = body.slice(10)
+					const dataurl = await axios.get(`https://bx-hunter.herokuapp.com/api/youwatchsearch?text=${youwatchsr}&apikey=${bxhunter}`)
+					const dataapi = dataurl.data
+					const resultdata = dataapi.data
+					let ywtch = `*「 Y O U W A T C H 」*`
+					for (let i = 0; i < resultdata.length; i++) {
+						ywtch += `\n─────────────────\n\n• *Judul:* ${resultdata[i].title}\n• *Kategori:* ${resultdata[i].category}\n• *Url:* ${resultdata[i].source}\n`
+					}
+					await aruga.sendFileFromUrl(from, resultdata[0].image, 'img.jpg', ywtch, id)
+						.catch(err => {
+							console.log(err)
+							aruga.reply(from, err.message, id)
 						})
 					break
 				case prefix + 'shopee':
